@@ -7,6 +7,7 @@ extension Color {
 			return (
 				enable: [
 					(self.level == .Foreground ? 38 : 48),
+					5,
 					self.color
 				],
 				disable: nil
