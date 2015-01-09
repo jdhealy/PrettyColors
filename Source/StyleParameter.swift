@@ -1,6 +1,6 @@
 /// Based on: ECMA-048 — 8.3.117
 public enum StyleParameter: UInt8, Parameter {
-	// TODO: Terminal Support Table: https://github.com/jdhealy/PrettyColors/wiki/Terminal-Support
+	// Reference: Terminal Support Table: https://github.com/jdhealy/PrettyColors/wiki/Terminal-Support
 	case Bold              = 01 // bold or increased intensity
 	case Faint             = 02 // faint, decreased intensity or second colour
 	case Italic            = 03 // italicized
