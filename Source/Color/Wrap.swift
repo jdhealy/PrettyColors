@@ -1,4 +1,4 @@
-extension Color {
+/* begin extension of color */ extension Color {
 
 public struct Wrap: SelectGraphicRenditionWrapType {
 	
@@ -225,4 +225,10 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	
 }
 
+/* end extension of color */ }
+
+extension Color.Wrap: Equatable {}
+
+public func == (a: Color.Wrap, b: Color.Wrap) -> Bool {
+	return a.code.enable == b.code.enable
 }

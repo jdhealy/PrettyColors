@@ -28,3 +28,8 @@ public protocol SelectGraphicRenditionWrapType {
 public protocol Parameter {
 	var code: (enable: [UInt8], disable: UInt8?) { get }
 }
+
+/// Defines equality for Parameters.
+public func == (a: Parameter, b: Parameter) -> Bool {
+	return a.code.enable == b.code.enable
+}
