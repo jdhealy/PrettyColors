@@ -28,18 +28,18 @@ public enum StyleParameter: UInt8, Parameter {
 	case Encircled         = 52
 	case Overlined         = 53
 
-	struct Reset {
-		/// FIXUP: Not every code has a corresponding reset…
-		static let dictionary: [UInt8: UInt8] = [
+	public struct Reset {
+		/// Some parameters have corresponding resets, 
+		/// but all parameters are reset by `defaultRendition`
+		public static let dictionary: [UInt8: UInt8] = [
 			03: 23, 04: 24, 05: 25, 06: 25, 11: 10,
 			12: 10, 13: 10, 14: 10, 15: 10, 16: 10,
 			17: 10, 18: 10, 19: 10, 20: 23, 51: 54,
 			52: 54, 53: 55
 		]
 		
-		/// cancels the effect of any preceding occurrence of SGR in the data stream regardless of the setting of the GRAPHIC RENDITION COMBINATION MODE
-		static let defaultRendition: UInt8 = 0
-		
+		/// “cancels the effect of any preceding occurrence of SGR in the data stream”
+		public static let defaultRendition: UInt8 = 0
 	}
 	
 	public var code: (enable: [UInt8], disable: UInt8?) {
