@@ -113,7 +113,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		return enable + string + disable
 	}
 	
-	// FIXME: Ridiculous workaround because `Cannot downcast from 'Parameter' to non-@objc protocol type 'ColorType'`
+	// FIXME: Ridiculous workaround `Cannot downcast from 'Parameter' to non-@objc protocol type 'ColorType'`
 	
 	private let foregroundFilter: Parameter -> Bool = {
 		switch $0 {
