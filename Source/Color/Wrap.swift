@@ -81,28 +81,30 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		if self.parameters.isEmpty {
 			return ("", "")
 		}
+
+		let disableAll = [StyleParameter.Reset.defaultRendition]
 		
 		var (enables, disables) = self.parameters.reduce(
 			(enable: [UInt8](), disable: [UInt8]())
 		) { (var previous, value) in
 			previous.enable += value.code.enable
-			if let disable = value.code.disable {
-				previous.disable.append(disable)
+			if previous.disable != disableAll {
+				if let disable = value.code.disable {
+					previous.disable.append(disable)
+				} else {
+					previous.disable = disableAll
+				}
 			}
 			return previous
 		}
 		
-		if disables.isEmpty {
-			disables.append(0)
-		}
-		
 		return (
-			enable: ECMA48.escape + "[" +
+			enable: ECMA48.controlSequenceIntroducer +
 				join(";", enables.map { String($0) } ) +
-			"m",
-			disable: ECMA48.escape + "[" +
+				"m",
+			disable: ECMA48.controlSequenceIntroducer +
 				join(";", disables.map { String($0) } ) +
-			"m"
+				"m"
 		)
 	}
 	
