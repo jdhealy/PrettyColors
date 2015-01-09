@@ -1,7 +1,6 @@
 
 public enum StyleParameter: UInt8, Parameter {
-	// FIXUP: comment — find out which are widely supported — mostly Terminal.app and iTerm
-	// FIXUP: comment — bold attribute also makes text Bright in some terminals
+	// TODO: Terminal Support Table: https://github.com/jdhealy/PrettyColors/wiki/Terminal-Support
 	case Bold              = 01 // bold or increased intensity
 	case Faint             = 02 // faint, decreased intensity or second colour
 	case Italic            = 03 // italicized
