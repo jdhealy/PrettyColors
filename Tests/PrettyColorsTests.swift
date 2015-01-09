@@ -25,7 +25,7 @@ class PrettyColorsTests: XCTestCase {
 		// println( formerlyRed.add(parameters: Color.EightBit(background: 244)).wrap("•••") )
 	}
 
-	func test_nilWrap() {
+	func testEmptyWrap() {
 		XCTAssert(
 			Color.Wrap(foreground: nil as UInt8?).code.enable == "",
 			"Wrap with no parameters wrapping an empty string should return an empty SelectGraphicRendition."
@@ -36,7 +36,7 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 	
-	func test_multi() {
+	func testMulti() {
 		var multi = Color.Wrap(parameters: [
 			Color.EightBit(foreground: 227),
 			Color.Named(foreground: .Green, brightness: .NonBright)
@@ -163,7 +163,7 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 
-	func testＺIterate() {
+	func test_Iterate() {
 		let red = Color.Named(foreground: .Red)
 		let niceColor = Color.EightBit(foreground: 114)
 		
@@ -180,7 +180,9 @@ class PrettyColorsTests: XCTestCase {
 			[], /* none */
 			[niceColor, StyleParameter.Italic],
 		]
-			
+		
+		let _print = NSProcessInfo.processInfo().environment["PrettyColors_Test_Print"] != nil
+		
 		for parameters in iterables {
 
 			let wrap = Color.Wrap(parameters: parameters)
@@ -192,13 +194,14 @@ class PrettyColorsTests: XCTestCase {
 				wrap.add(parameters: .Italic, .Underlined),
 				wrap.add(parameters: .Bold, .Underlined)
 			] {
-				println( "o " + modifiedWrap.wrap("__|øat·•ªº^∆©|__") )
+				let string = "o " + modifiedWrap.wrap("__|øat·•ªº^∆©|__")
+				if _print { println(string) }
 			}
 			
 		}
 	}
 
-	func testＺEverything() {
+	func test_Everything() {
 		
 		let red = Color.Named(foreground: .Red)
 		let niceColor = Color.EightBit(foreground: 114)
@@ -207,7 +210,9 @@ class PrettyColorsTests: XCTestCase {
 			[red],
 			[niceColor],
 		]
-			
+		
+		let _print = NSProcessInfo.processInfo().environment["PrettyColors_Test_Print"] != nil
+	
 		for parameters in iterables {
 
 			let wrap = Color.Wrap(parameters: parameters)
@@ -220,7 +225,8 @@ class PrettyColorsTests: XCTestCase {
 						wrap.add(parameters: .Italic),
 						wrap.add(parameters: .Underlined)
 					] {
-						println( "\(i)o " + modifiedWrap.add(parameters: parameter).wrap("__|øat·•ªº^∆©|__") )
+						let string = "\(i)o " + modifiedWrap.add(parameters: parameter).wrap("__|øat·•ªº^∆©|__")
+						if _print { println(string) }
 					}
 				}
 			}
