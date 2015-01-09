@@ -15,6 +15,8 @@
 		673900CE1A54702D0066713B /* EightBitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CD1A54702D0066713B /* EightBitColor.swift */; };
 		673900D21A5482890066713B /* PrettyColors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; };
 		678D8CC21A58F50500F1FE02 /* Named.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D8CC11A58F50500F1FE02 /* Named.swift */; };
+		6799D19E1A5D9FC100B8840D /* PrettyColors.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6799D1A01A5D9FD400B8840D /* PrettyColors.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		67B8DD6D1A5C86B500F4CE19 /* PrettyColors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */; };
 		67B8DD7B1A5C86D700F4CE19 /* ECMA 48.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900C91A546F880066713B /* ECMA 48.swift */; };
 		67B8DD7C1A5C86D700F4CE19 /* StyleParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900C71A546F530066713B /* StyleParameter.swift */; };
@@ -24,8 +26,6 @@
 		67B8DD801A5C86DD00F4CE19 /* EightBitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CD1A54702D0066713B /* EightBitColor.swift */; };
 		67B8DD821A5C86E600F4CE19 /* PrettyColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 673900B01A546F2D0066713B /* PrettyColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		67B8DD9B1A5C8A9D00F4CE19 /* PrettyColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900BD1A546F2D0066713B /* PrettyColorsTests.swift */; };
-		67B8DD9E1A5C8C0F00F4CE19 /* PrettyColors.framework in Resources */ = {isa = PBXBuildFile; fileRef = 67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */; };
-		67B8DD9F1A5C8C1C00F4CE19 /* PrettyColors.framework in Resources */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; };
 		67C9FB1D1A5C7CF100FDFE3A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FB1C1A5C7CF100FDFE3A /* Color.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +45,31 @@
 			remoteInfo = PrettyColors;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6799D19D1A5D9FB000B8840D /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6799D19E1A5D9FC100B8840D /* PrettyColors.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6799D19F1A5D9FCC00B8840D /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6799D1A01A5D9FD400B8840D /* PrettyColors.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		673900AB1A546F2D0066713B /* PrettyColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrettyColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,7 +320,7 @@
 			buildPhases = (
 				673900B21A546F2D0066713B /* Sources */,
 				673900B31A546F2D0066713B /* Frameworks */,
-				673900B41A546F2D0066713B /* Resources */,
+				6799D19D1A5D9FB000B8840D /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -331,7 +356,7 @@
 			buildPhases = (
 				67B8DD681A5C86B500F4CE19 /* Sources */,
 				67B8DD691A5C86B500F4CE19 /* Frameworks */,
-				67B8DD6A1A5C86B500F4CE19 /* Resources */,
+				6799D19F1A5D9FCC00B8840D /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -394,26 +419,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		673900B41A546F2D0066713B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				67B8DD9F1A5C8C1C00F4CE19 /* PrettyColors.framework in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		67B8DD601A5C86B400F4CE19 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		67B8DD6A1A5C86B500F4CE19 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				67B8DD9E1A5C8C0F00F4CE19 /* PrettyColors.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
