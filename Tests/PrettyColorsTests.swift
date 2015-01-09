@@ -114,46 +114,68 @@ class PrettyColorsTests: XCTestCase {
 		println( red.add(parameters: .Bold).wrap("•••") )
 	}
 
-	
-	func blarg_testExample() {
-//		XCTAssert(true, "Pass")
-//		
-//		let red = Color.Wrap(foreground: .Red)
-//		let niceColor = Color.Wrap(foreground: 114 as UInt8)
-//		for code in ([
-//			red,
-//			/* none */ { (var __) in
-//				__.foreground = nil
-//				return __
-//			}(red),
-//			/* bright red */ { (var red) in
-//				red.foreground?.brightness.toggle()
-//				return red
-//			}(red),
-//			niceColor,
-//			/* none */ { (var __) in
-//				__.foreground = nil
-//				return __
-//			}(niceColor),
-//			niceColor.add(attributes: .Fraktur),
-//			/* italic */ { (var __) in
-//				__.foreground = nil
-//				return __.add(attributes: .Italic)
-//			}(niceColor),
-//		] as [SelectGraphicRenditionWrapType]) {
-//			// dump(code)
-//			for i in [
-//				code,
-//				code.add(attributes: .Bold),
-//				code.add(attributes: .Italic, .Underlined),
-//				code.add(attributes: .Bold, .Underlined)
-//			] {
-//				print("••• ")
-//				println( i.wrap("__|øat·•ªº^∆©|__") )
-//			}
-//		}
-//
+	func testIterate() {
+		let red = Color.Named(foreground: .Red)
+		let niceColor = Color.EightBit(foreground: 114)
+		
+		let iterables: Array< [Parameter] > = [
+			[red],
+			[], /* none */
+			[
+				{ (var red) in
+					red.brightness.toggle()
+					return red
+				}(red)
+			], /* bright red */
+			[niceColor],
+			[], /* none */
+			[niceColor, StyleParameter.Italic],
+		]
+			
+		for parameters in iterables {
+
+			let wrap = Color.Wrap(parameters: parameters)
+
+			for modifiedWrap in [
+				wrap,
+				wrap.add(parameters: .Faint),
+				wrap.add(parameters: .Bold),
+				wrap.add(parameters: .Italic, .Underlined),
+				wrap.add(parameters: .Bold, .Underlined)
+			] {
+				println( "o " + modifiedWrap.wrap("__|øat·•ªº^∆©|__") )
+			}
+			
+		}
 	}
 
-	
+	func testZZZ_Everything() {
+		
+		let red = Color.Named(foreground: .Red)
+		let niceColor = Color.EightBit(foreground: 114)
+		
+		let iterables: Array< [Parameter] > = [
+			[red],
+			[niceColor],
+		]
+			
+		for parameters in iterables {
+
+			let wrap = Color.Wrap(parameters: parameters)
+			
+			for i in stride(from: 1 as UInt8, through: 55, by: 1) {
+				if let parameter = StyleParameter(rawValue: i) {
+					for modifiedWrap in [
+						wrap,
+						wrap.add(parameters: .Bold),
+						wrap.add(parameters: .Italic),
+						wrap.add(parameters: .Underlined)
+					] {
+						println( "\(i)o " + modifiedWrap.add(parameters: parameter).wrap("__|øat·•ªº^∆©|__") )
+					}
+				}
+			}
+		}
+	}
+
 }
