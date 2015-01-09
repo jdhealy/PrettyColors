@@ -4,7 +4,7 @@
 
 ## Description
 `PrettyColors` is a Swift library for styling and coloring text in the Terminal.
-The library outputs [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) and comforms to [ECMA Standard 48](http://www.ecma-international.org/publications/standards/Ecma-048.htm).
+The library outputs [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) and conforms to [ECMA Standard 48](http://www.ecma-international.org/publications/standards/Ecma-048.htm).
 
 ### Example
 ```swift
