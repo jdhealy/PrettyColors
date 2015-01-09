@@ -25,38 +25,86 @@ class PrettyColorsTests: XCTestCase {
 		// println( formerlyRed.add(parameters: Color.EightBit(background: 244)).wrap("•••") )
 	}
 
-	func test___Arrgg() {
+	func test_nilWrap() {
+		XCTAssert(
+			Color.Wrap(foreground: nil as UInt8?).code.enable == "",
+			"Wrap with no parameters wrapping an empty string should return an empty SelectGraphicRendition."
+		)
+		XCTAssert(
+			Color.Wrap(foreground: nil as UInt8?).wrap("") == "",
+			"Wrap with no parameters wrapping an empty string should return an empty string."
+		)
+	}
+	
+	func test_multi() {
 		var multi = Color.Wrap(parameters: [
 			Color.EightBit(foreground: 227),
 			Color.Named(foreground: .Green, brightness: .NonBright)
 		])
-		dump(multi.parameters)
-//		formerlyRed.foreground = Color.Named(foreground: .Yellow)
-		println( multi.wrap("•••") )
+		XCTAssert(
+			multi.code.enable ==
+			ECMA48.controlSequenceIntroducer + "38;5;227" + ";" + "32" + "m"
+		)
+		XCTAssert(
+			multi.code.disable ==
+			ECMA48.controlSequenceIntroducer + "0" + "m"
+		)
 	}
 
+	func testWrapForeground() {
+		XCTAssert(
+			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as Color.Named
+		)
+	}
+	
 	func testLetWorkflow() {
 		let redOnBlack = Color.Wrap(foreground: .Red, background: .Black)
 		let boldRedOnBlack = Color.Wrap(parameters: redOnBlack.parameters + [ StyleParameter.Bold ])
-		println( boldRedOnBlack.wrap("•••") )
+		
+		XCTAssert(
+			boldRedOnBlack == Color.Wrap(foreground: .Red, background: .Black, style: .Bold)
+		)
+		XCTAssert(
+			[
+				boldRedOnBlack,
+				Color.Wrap(foreground: .Red, background: .Black, style: .Bold)
+			].reduce(true) {
+				(previous, value) in
+				return previous && value.parameters.reduce(true) {
+					(previous, value) in
+					let enable = value.code.enable
+					return previous && (
+						value == Color.Named(foreground: .Red) as Parameter ||
+						value == Color.Named(background: .Black) as Parameter ||
+						value == StyleParameter.Bold
+					)
+				}
+			} == true
+		)
 	}
 	
 	func testSetForeground() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
 		formerlyRed.foreground = Color.EightBit(foreground: 227) // A nice yellow
-		println( formerlyRed.wrap("•••") )
+		XCTAssert(
+			formerlyRed == Color.Wrap(foreground: 227)
+		)
 	}
 	
 	func testSetForegroundToNil() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
 		formerlyRed.foreground = nil
-		println( formerlyRed.wrap("•••") )
+		
+		XCTAssert(
+			formerlyRed == Color.Wrap(foreground: nil as UInt8?)
+		)
 	}
 
 	func testSetForegroundToParameter() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
 		formerlyRed.foreground = StyleParameter.Bold
-		println( formerlyRed.wrap("•••") )
+		
+		XCTAssert( formerlyRed == Color.Wrap(parameters: [StyleParameter.Bold]) )
 	}
 	
 	func testTransformForeground() {
@@ -64,7 +112,7 @@ class PrettyColorsTests: XCTestCase {
 		formerlyRed.foreground { (color: ColorType) -> ColorType in
 			return Color.EightBit(foreground: 227) // A nice yellow
 		}
-		println( formerlyRed.wrap("•••") )
+		XCTAssert( formerlyRed == Color.Wrap(foreground: 227) )
 	}
 
 	func testTransformForeground2() {
@@ -76,7 +124,7 @@ class PrettyColorsTests: XCTestCase {
 				return soonYellow
 			} else { return color }
 		}
-		println( formerlyRed.wrap("•••") )
+		XCTAssert( formerlyRed == Color.Wrap(foreground: 227) )
 	}
 	
 	func testTransformForegroundWithVar() {
@@ -88,7 +136,7 @@ class PrettyColorsTests: XCTestCase {
 				return soonYellow
 			} else { return color }
 		}
-		println( formerlyRed.wrap("•••") )
+		XCTAssert( formerlyRed == Color.Wrap(foreground: .Yellow) )
 	}
 
 	func testTransformForegroundToBright() {
@@ -98,27 +146,28 @@ class PrettyColorsTests: XCTestCase {
 			clone.brightness.toggle()
 			return clone
 		}
-		println( formerlyRed.wrap("•••") )
-	}
-
-	func testRaceConditions() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
-		formerlyRed.foreground { (var color: ColorType) -> ColorType in
-			return Color.Named(foreground: .Yellow)
-		}
-		println( formerlyRed.wrap("•••") )
+		
+		let brightRed = Color.Wrap(parameters: [
+			Color.Named(foreground: .Red, brightness: .Bright)
+		])
+		
+		XCTAssert( formerlyRed == brightRed )
 	}
 	
 	func testAddStyleParameter() {
 		let red = Color.Wrap(foreground: .Red)
-		println( red.add(parameters: .Bold).wrap("•••") )
+		
+		XCTAssert(
+			red.add(parameters: .Bold) as Color.Wrap ==
+			Color.Wrap(foreground: .Red, style: .Bold)
+		)
 	}
 
-	func testIterate() {
+	func testＺIterate() {
 		let red = Color.Named(foreground: .Red)
 		let niceColor = Color.EightBit(foreground: 114)
 		
-		let iterables: Array< [Parameter] > = [
+		let iterables: [ [Parameter] ] = [
 			[red],
 			[], /* none */
 			[
@@ -149,7 +198,7 @@ class PrettyColorsTests: XCTestCase {
 		}
 	}
 
-	func testZZZ_Everything() {
+	func testＺEverything() {
 		
 		let red = Color.Named(foreground: .Red)
 		let niceColor = Color.EightBit(foreground: 114)
