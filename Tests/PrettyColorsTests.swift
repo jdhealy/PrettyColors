@@ -51,7 +51,7 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 
-	func testWrapForeground() {
+	func testWrapComputedVariableForeground() {
 		XCTAssert(
 			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as Color.Named
 		)
@@ -163,45 +163,7 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 
-	func test_Iterate() {
-		let red = Color.Named(foreground: .Red)
-		let niceColor = Color.EightBit(foreground: 114)
-		
-		let iterables: [ [Parameter] ] = [
-			[red],
-			[], /* none */
-			[
-				{ (var red) in
-					red.brightness.toggle()
-					return red
-				}(red)
-			], /* bright red */
-			[niceColor],
-			[], /* none */
-			[niceColor, StyleParameter.Italic],
-		]
-		
-		let _print = NSProcessInfo.processInfo().environment["PrettyColors_Test_Print"] != nil
-		
-		for parameters in iterables {
-
-			let wrap = Color.Wrap(parameters: parameters)
-
-			for modifiedWrap in [
-				wrap,
-				wrap.add(parameters: .Faint),
-				wrap.add(parameters: .Bold),
-				wrap.add(parameters: .Italic, .Underlined),
-				wrap.add(parameters: .Bold, .Underlined)
-			] {
-				let string = "o " + modifiedWrap.wrap("__|øat·•ªº^∆©|__")
-				if _print { println(string) }
-			}
-			
-		}
-	}
-
-	func test_Everything() {
+	func testZapAllStyleParameters() {
 		
 		let red = Color.Named(foreground: .Red)
 		let niceColor = Color.EightBit(foreground: 114)
@@ -210,8 +172,6 @@ class PrettyColorsTests: XCTestCase {
 			[red],
 			[niceColor],
 		]
-		
-		let _print = NSProcessInfo.processInfo().environment["PrettyColors_Test_Print"] != nil
 	
 		for parameters in iterables {
 
@@ -220,13 +180,15 @@ class PrettyColorsTests: XCTestCase {
 			for i in stride(from: 1 as UInt8, through: 55, by: 1) {
 				if let parameter = StyleParameter(rawValue: i) {
 					for modifiedWrap in [
-						wrap,
-						wrap.add(parameters: .Bold),
-						wrap.add(parameters: .Italic),
-						wrap.add(parameters: .Underlined)
+						(wrap, "normal"),
+						(wrap.add(parameters: .Bold), "bold"),
+						(wrap.add(parameters: .Italic), "italic"),
+						(wrap.add(parameters: .Underlined), "underlined")
 					] {
-						let string = "\(i)o " + modifiedWrap.add(parameters: parameter).wrap("__|øat·•ªº^∆©|__")
-						if _print { println(string) }
+						let string = "• " +
+							modifiedWrap.0.add(parameters: parameter).wrap("__|øat·•ªº^∆©|__") +
+							" " + NSString(format: "%02d", i) + " + " + modifiedWrap.1
+						println(string)
 					}
 				}
 			}
