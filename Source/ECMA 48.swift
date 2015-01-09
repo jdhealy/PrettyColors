@@ -1,8 +1,9 @@
 
-// TODO: Make Color.Wrap, Color.Named, Color.EightBit
-
 public struct ECMA48 {
+	/// “ESC is used for code extension purposes. It causes the meanings of a limited 
+	/// number of bit combinations following it in the data stream to be changed.”
 	static let escape = "\u{001B}"
+	/// “used as the first character of a control sequence”
 	static let controlSequenceIntroducer = escape + "["
 }
 
