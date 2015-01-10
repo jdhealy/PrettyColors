@@ -14,6 +14,8 @@
 		673900CC1A546FE00066713B /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CB1A546FE00066713B /* Wrap.swift */; };
 		673900CE1A54702D0066713B /* EightBitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CD1A54702D0066713B /* EightBitColor.swift */; };
 		673900D21A5482890066713B /* PrettyColors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; };
+		67843C221A6102200061C1D3 /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
+		67843C231A6102200061C1D3 /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
 		678D8CC21A58F50500F1FE02 /* Named.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D8CC11A58F50500F1FE02 /* Named.swift */; };
 		6799D19E1A5D9FC100B8840D /* PrettyColors.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6799D1A01A5D9FD400B8840D /* PrettyColors.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -82,6 +84,7 @@
 		673900C91A546F880066713B /* ECMA 48.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ECMA 48.swift"; sourceTree = "<group>"; };
 		673900CB1A546FE00066713B /* Wrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrap.swift; sourceTree = "<group>"; };
 		673900CD1A54702D0066713B /* EightBitColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EightBitColor.swift; sourceTree = "<group>"; };
+		67843C211A6102200061C1D3 /* Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Equality.swift; sourceTree = "<group>"; };
 		678D8CC11A58F50500F1FE02 /* Named.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Named.swift; sourceTree = "<group>"; };
 		67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrettyColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67B8DD6C1A5C86B500F4CE19 /* PrettyColorsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrettyColorsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				673900BD1A546F2D0066713B /* PrettyColorsTests.swift */,
+				67843C211A6102200061C1D3 /* Equality.swift */,
 				673900BB1A546F2D0066713B /* Supporting Files */,
 			);
 			path = Tests;
@@ -447,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				670CAA851A54831200EBB404 /* PrettyColorsTests.swift in Sources */,
+				67843C221A6102200061C1D3 /* Equality.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67B8DD9B1A5C8A9D00F4CE19 /* PrettyColorsTests.swift in Sources */,
+				67843C231A6102200061C1D3 /* Equality.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
