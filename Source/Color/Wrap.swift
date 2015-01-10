@@ -60,7 +60,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		self.parameters = parameters
 	}
 	
-	
+	/// Returns a new value with the added StyleParameters.
 	public func add(#parameters: StyleParameter...) -> SelectGraphicRenditionWrapType {
 		var clone = self
 		
@@ -76,6 +76,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		return clone
 	}
 	
+	/// A SelectGraphicRendition code in two parts: enable and disable.
 	public var code: (enable: SelectGraphicRendition, disable: SelectGraphicRendition) {
 		
 		if self.parameters.isEmpty {
@@ -108,6 +109,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		)
 	}
 	
+	/// Wraps the enable and disable SelectGraphicRendition codes around a string.
 	public func wrap(string: String) -> String {
 		let (enable, disable) = self.code
 		return enable + string + disable
@@ -230,5 +232,29 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 extension Color.Wrap: Equatable {}
 
 public func == (a: Color.Wrap, b: Color.Wrap) -> Bool {
-	return a.code.enable == b.code.enable
+	
+	if a.parameters.count != b.parameters.count {
+		return false
+	} else {
+		let stringify: (Parameter) -> String = {
+			join( "-", $0.code.enable.map { String($0) } )
+		}
+
+		let sort: (Parameter, Parameter) -> Bool = {
+			(one, two) in
+			return stringify(one) > stringify (two)
+		}
+		
+		var x = a.parameters.sorted(sort)
+		var y = b.parameters.sorted(sort)
+		
+		return x.reduce((equal: true, index: y.startIndex)) {
+			(previous, value) in
+			return (
+				previous.equal && value == y[previous.index],
+				previous.index + 1
+			)
+		}.equal
+	}
+
 }

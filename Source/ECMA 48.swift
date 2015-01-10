@@ -33,3 +33,8 @@ public protocol Parameter {
 public func == (a: Parameter, b: Parameter) -> Bool {
 	return a.code.enable == b.code.enable
 }
+
+/// Defines inequality for Parameters.
+public func != (a: Parameter, b: Parameter) -> Bool {
+	return !(a == b)
+}

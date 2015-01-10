@@ -20,11 +20,6 @@ class PrettyColorsTests: XCTestCase {
 		// Color.Wrap(style: StyleParameter.Bold)
 	}
 	
-	// Figure out how to do this with XCTest
-	func blarg_shouldFail() {
-		// println( formerlyRed.add(parameters: Color.EightBit(background: 244)).wrap("•••") )
-	}
-
 	func testEmptyWrap() {
 		XCTAssert(
 			Color.Wrap(foreground: nil as UInt8?).code.enable == "",
@@ -163,6 +158,39 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 
+	func testEightBitForegroundBackgroundDifference() {
+		let one = Color.EightBit(foreground: 114)
+		let two = Color.EightBit(background: 114)
+		
+		let difference = one.code.enable.reduce(
+			two.code.enable.reduce(0 as UInt8) { return $0.0 + $0.1 }
+		) { return $0.0 - $0.1 }
+		
+		XCTAssert( difference == 10 )
+	}
+
+	func testNamedForegroundBackgroundDifference() {
+		let one = Color.Named(foreground: .Green)
+		let two = Color.Named(background: .Green)
+		
+		let difference = one.code.enable.reduce(
+			two.code.enable.reduce(0 as UInt8) { return $0.0 + $0.1 }
+		) { return $0.0 - $0.1 }
+		
+		XCTAssert( difference == 10 )
+	}
+	
+	func testNamedBrightnessDifference() {
+		let one = Color.Named(foreground: .Green)
+		let two = Color.Named(foreground: .Green, brightness: .Bright)
+		
+		let difference = one.code.enable.reduce(
+			two.code.enable.reduce(0 as UInt8) { return $0.0 + $0.1 }
+		) { return $0.0 - $0.1 }
+		
+		XCTAssert( difference == 60 )
+	}
+	
 	func testZapAllStyleParameters() {
 		
 		let red = Color.Named(foreground: .Red)
