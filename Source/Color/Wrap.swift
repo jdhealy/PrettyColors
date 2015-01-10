@@ -60,7 +60,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		self.parameters = parameters
 	}
 	
-	
+	/// Returns a new value with the added StyleParameters.
 	public func add(#parameters: StyleParameter...) -> SelectGraphicRenditionWrapType {
 		var clone = self
 		
@@ -76,6 +76,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		return clone
 	}
 	
+	/// A SelectGraphicRendition code in two parts: enable and disable.
 	public var code: (enable: SelectGraphicRendition, disable: SelectGraphicRendition) {
 		
 		if self.parameters.isEmpty {
@@ -108,6 +109,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		)
 	}
 	
+	/// Wraps the enable and disable SelectGraphicRendition codes around a string.
 	public func wrap(string: String) -> String {
 		let (enable, disable) = self.code
 		return enable + string + disable
