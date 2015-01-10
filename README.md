@@ -30,6 +30,18 @@ Add the following to your Cartfile:
 ```ogdl
 github "jdhealy/PrettyColors"
 ```
+#### [CocoaPods](http://cocoapods.org)
+
+__DISCLAIMER: CocoaPods doesn't officially support Swift projects yet. Use the
+pre-release version at your own discretion.__
+
+Add the following to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
+
+```ruby
+pod 'PrettyColors', :git => 'https://github.com/jdhealy/PrettyColors'
+```
+
+Then run `pod install` with CocoaPods 0.36 or newer.
 
 ## Inspiration
 - [`junegunn/ansi256`](https://github.com/junegunn/ansi256/)
