@@ -1,6 +1,11 @@
 # PrettyColors
 
-![Carthage compatible](https://img.shields.io/badge/Carthage-✔-f2a77e.svg?style=flat)
+[![Carthage Compatibility](https://img.shields.io/badge/Carthage-✔-f2a77e.svg?style=flat)][carthage]
+[![CocoaPods Version](https://img.shields.io/cocoapods/v/PrettyColors.svg?style=flat)][cocoadocs]
+[![License](https://img.shields.io/cocoapods/l/PrettyColors.svg?style=flat)][cocoadocs]
+[![Platform](https://img.shields.io/cocoapods/p/PrettyColors.svg?style=flat)][cocoadocs]
+[carthage]: https://github.com/Carthage/Carthage/
+[cocoadocs]: http://cocoadocs.org/docsets/PrettyColors
 
 ## Description
 `PrettyColors` is a Swift library for styling and coloring text in the Terminal.
