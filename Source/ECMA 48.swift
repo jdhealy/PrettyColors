@@ -17,11 +17,7 @@ public protocol SelectGraphicRenditionWrapType {
 	/// Wraps a string in the SelectGraphicRendition code.
 	func wrap(string: String) -> String
 	
-	// This would be better typed as a Set, but
-	// there's no Set in the Swift stdlib yet…
 	var parameters: [Parameter] { get set }
-	
-	func add(#parameters: StyleParameter...) -> SelectGraphicRenditionWrapType
 	
 }
 

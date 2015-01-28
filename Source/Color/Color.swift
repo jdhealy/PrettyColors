@@ -5,6 +5,7 @@ public protocol ColorType: Parameter {
 	var level: Level { get }
 }
 
+/// Foreground/Background
 public enum Level {
 	case Foreground
 	case Background

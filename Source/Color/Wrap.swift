@@ -1,27 +1,42 @@
 /* begin extension of color */ extension Color {
 
-public struct Wrap: SelectGraphicRenditionWrapType {
-	
-	public var parameters: [Parameter] = [Parameter]()
+//------------------------------------------------------------------------------
+// MARK: - Wrap
+//------------------------------------------------------------------------------
 
-	public init(
-		parameters: [Parameter] = [Parameter]()
-	) {
-		self.parameters = parameters
+public struct Wrap: SelectGraphicRenditionWrapType {
+
+	public typealias Element = Parameter
+	public typealias UnderlyingCollection = [Element]
+	
+	public var parameters = UnderlyingCollection()
+
+	//------------------------------------------------------------------------------
+	// MARK: - Initializers
+	//------------------------------------------------------------------------------
+
+	public init<S: SequenceType where S.Generator.Element == Element>(parameters: S) {
+		self.parameters = [] as UnderlyingCollection + parameters
 	}
 	
-	public init(
-		style: StyleParameter...
-	) {
-		self.parameters = style.map { $0 as Parameter }
+	// This might be impossible to call…
+	// but, it needs to be defined for protocol conformance.
+	public init() {
+		self.init(
+			parameters: [] as UnderlyingCollection
+		)
 	}
 	
+	public init(arrayLiteral parameters: Element...) {
+		self.init(parameters: parameters)
+	}
+
 	public init(
 		foreground: Color.Named.Color? = nil,
 		background: Color.Named.Color? = nil,
 		style: StyleParameter...
 	) {
-		var parameters = [Parameter]()
+		var parameters: [Parameter] = []
 		
 		if let foreground = foreground {
 			parameters.append( Color.Named(foreground: foreground) )
@@ -35,7 +50,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 			parameters.append(parameter)
 		}
 		
-		self.parameters = parameters
+		self.init(parameters: parameters)
 	}
 	
 	public init(
@@ -43,7 +58,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		background: UInt8? = nil,
 		style: StyleParameter...
 	) {
-		var parameters = [Parameter]()
+		var parameters: [Parameter] = []
 		
 		if let foreground = foreground {
 			parameters.append( Color.EightBit(foreground: foreground) )
@@ -57,25 +72,13 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 			parameters.append(parameter)
 		}
 		
-		self.parameters = parameters
+		self.init(parameters: parameters)
 	}
 	
-	/// Returns a new value with the added StyleParameters.
-	public func add(#parameters: StyleParameter...) -> SelectGraphicRenditionWrapType {
-		var clone = self
-		
-		clone.parameters = reduce(
-			parameters,
-			clone.parameters
-		) { (previous, addition) in
-				var appendable = previous.filter({ $0.code.enable != addition.code.enable })
-				appendable.append(addition)
-				return appendable
-		}
-		
-		return clone
-	}
-	
+	//------------------------------------------------------------------------------
+	// MARK: - SelectGraphicRenditionWrap
+	//------------------------------------------------------------------------------
+
 	/// A SelectGraphicRendition code in two parts: enable and disable.
 	public var code: (enable: SelectGraphicRendition, disable: SelectGraphicRendition) {
 		
@@ -115,31 +118,64 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		return enable + string + disable
 	}
 	
-	// FIXME: Ridiculous workaround `Cannot downcast from 'Parameter' to non-@objc protocol type 'ColorType'`
+	//------------------------------------------------------------------------------
+	// MARK: - Foreground/Background Helpers
+	//------------------------------------------------------------------------------
+	// FIXME: Ridiculous workaround “downcast” issue by using `switch`…
+	// `Cannot downcast from 'Parameter' to non-@objc protocol type 'ColorType'`
 	
-	private let foregroundFilter: Parameter -> Bool = {
-		switch $0 {
-		// FIXME: Ridiculous workaround…
-		case let color as Color.Named:
-			return color.level == Level.Foreground
-		case let color as Color.EightBit:
-			return color.level == Level.Foreground
-		default:
-			return false
+	struct Filters {
+
+		private static func level(level: Level) -> (Parameter -> Bool) {
+			return {
+				switch $0 {
+				// FIXME: Ridiculous workaround…
+				case let color as Color.Named:
+					return color.level == level
+				case let color as Color.EightBit:
+					return color.level == level
+				default:
+					return false
+				}
+			}
+		}
+	
+	}
+	
+	public var foreground: Parameter? {
+		get {
+			return parameters.filter(
+				Filters.level(.Foreground)
+			).first
+		}
+		mutating set(newForeground) {
+			var newParameters = [Parameter]()
+			if let newForeground = newForeground {
+				newParameters.append(newForeground)
+			}
+			self.parameters = newParameters + parameters.filter {
+				!Filters.level(.Foreground)($0)
+			}
 		}
 	}
 	
-	private let backgroundFilter: Parameter -> Bool = {
-		switch $0 {
-		// FIXME: Ridiculous workaround…
-		case let color as Color.Named:
-			return color.level == Level.Background
-		case let color as Color.EightBit:
-			return color.level == Level.Background
-		default:
-			return false
+	public var background: Parameter? {
+		get {
+			return parameters.filter(
+				Filters.level(.Background)
+			).first
+		}
+		mutating set(newBackground) {
+			var newParameters = [Parameter]()
+			if let newBackground = newBackground {
+				newParameters.append(newBackground)
+			}
+			self.parameters = newParameters + parameters.filter {
+				!Filters.level(.Background)($0)
+			}
 		}
 	}
+
 	
 	public mutating func foreground(transform: ColorType -> ColorType) -> Bool {
 		
@@ -190,71 +226,134 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		
 		return transformed ?? false
 	}
+
+	//------------------------------------------------------------------------------
+	// MARK: - Big Three
+	//------------------------------------------------------------------------------
 	
-	public var foreground: Parameter? {
-		get {
-			return parameters.filter(
-				foregroundFilter
-			).first
-		}
-		mutating set(newForeground) {
-			var newParameters = [Parameter]()
-			if let newForeground = newForeground {
-				newParameters.append(newForeground)
-			}
-			self.parameters = newParameters + parameters.filter {
-				!self.foregroundFilter($0)
-			}
-		}
+	public func map<T>(transform: Element -> T) -> [T] {
+		return Swift.map(self, transform)
+	}
+
+	public func filter(includeElement: Element -> Bool) -> Color.Wrap {
+		return Color.Wrap(parameters: Swift.filter(self, includeElement))
 	}
 	
-	public var background: Parameter? {
-		get {
-			return parameters.filter(
-				backgroundFilter
-			).first
-		}
-		mutating set(newBackground) {
-			var newParameters = [Parameter]()
-			if let newBackground = newBackground {
-				newParameters.append(newBackground)
-			}
-			self.parameters = newParameters + parameters.filter {
-				!self.backgroundFilter($0)
-			}
-		}
+	public func reduce<U>(initial: U, combine: (U, Element) -> U) -> U {
+		return Swift.reduce(self, initial, combine)
 	}
 	
 }
 
 /* end extension of color */ }
 
-extension Color.Wrap: Equatable {}
+//------------------------------------------------------------------------------
+// MARK: - Wrap: SequenceType
+//------------------------------------------------------------------------------
 
-public func == (a: Color.Wrap, b: Color.Wrap) -> Bool {
+extension Color.Wrap: SequenceType {
+	public typealias Generator = GeneratorOf<Element>
+	public func generate() -> Generator {
+		var generator = parameters.generate()
+		return GeneratorOf { return generator.next() }
+	}
+}
+
+//------------------------------------------------------------------------------
+// MARK: - Wrap: CollectionType
+//------------------------------------------------------------------------------
+
+extension Color.Wrap: MutableCollectionType {
+	public typealias Index = UnderlyingCollection.Index
+	public var startIndex: Index { return parameters.startIndex }
+	public var endIndex: Index { return parameters.endIndex }
 	
-	if a.parameters.count != b.parameters.count {
-		return false
-	} else {
-		let stringify: (Parameter) -> String = {
-			join( "-", $0.code.enable.map { String($0) } )
-		}
+	public subscript(position:Index) -> Generator.Element {
+		get { return parameters[position] }
+		set { parameters[position] = newValue }
+	}
+}
 
-		let sort: (Parameter, Parameter) -> Bool = {
-			(one, two) in
-			return stringify(one) > stringify (two)
-		}
-		
-		var x = a.parameters.sorted(sort)
-		var y = b.parameters.sorted(sort)
-		
-		return x.reduce((equal: true, index: y.startIndex)) {
-			(previous, value) in
-			return (
-				previous.equal && value == y[previous.index],
-				previous.index + 1
-			)
-		}.equal
+//------------------------------------------------------------------------------
+// MARK: - Wrap: ExtensibleCollectionType
+//------------------------------------------------------------------------------
+
+extension Color.Wrap: ExtensibleCollectionType {
+	public mutating func reserveCapacity(n: Index.Distance) {
+		parameters.reserveCapacity(n)
 	}
 
+	public mutating func append(newElement: Element) {
+		parameters.append(newElement)
+	}
+	
+	public mutating func append(#style: StyleParameter...) {
+		for parameter in style {
+			parameters.append(parameter)
+		}
+	}
+	
+	public mutating func extend <S: SequenceType where S.Generator.Element == Element> (sequence: S) {
+		parameters.extend(sequence)
+	}
+}
+
+//------------------------------------------------------------------------------
+// MARK: - Wrap: ArrayLiteralConvertible
+//------------------------------------------------------------------------------
+
+extension Color.Wrap: ArrayLiteralConvertible {}
+
+//------------------------------------------------------------------------------
+// MARK: - Wrap: Equatable
+//------------------------------------------------------------------------------
+
+extension Color.Wrap: Equatable {
+	
+	public enum EqualityType {
+		case Array
+		case Set
+	}
+	
+	private func setEqualilty(a: Color.Wrap, _ b: Color.Wrap) -> Bool {
+		if a.parameters.count != b.parameters.count {
+			return false
+		} else {
+			let stringify: (Parameter) -> String = {
+				join( "-", $0.code.enable.map { String($0) } )
+			}
+			
+			let sort: (Parameter, Parameter) -> Bool = {
+				(one, two) in
+				return stringify(one) > stringify (two)
+			}
+			
+			var x = a.parameters.sorted(sort)
+			var y = b.parameters.sorted(sort)
+			
+			return x.reduce((equal: true, index: y.startIndex)) {
+				(previous, value) in
+				return (
+					previous.equal && value == y[previous.index],
+					previous.index + 1
+				)
+			}.equal
+		}
+	}
+	
+	public func isEqual(to other: Color.Wrap, equality: Color.Wrap.EqualityType = .Array) -> Bool {
+		switch equality {
+		case .Array:
+			return
+				self.parameters.count == other.parameters.count &&
+				self.code.enable == other.code.enable
+		case .Set:
+			return setEqualilty(self, other)
+		}
+	}
+
+}
+
+public func == (a: Color.Wrap, b: Color.Wrap) -> Bool {
+	return a.isEqual(to: b, equality: .Array)
 }

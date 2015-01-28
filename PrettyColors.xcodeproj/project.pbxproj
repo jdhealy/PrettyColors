@@ -7,15 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		670CAA851A54831200EBB404 /* PrettyColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900BD1A546F2D0066713B /* PrettyColorsTests.swift */; };
 		673900B11A546F2D0066713B /* PrettyColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 673900B01A546F2D0066713B /* PrettyColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		673900C81A546F530066713B /* StyleParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900C71A546F530066713B /* StyleParameter.swift */; };
 		673900CA1A546F880066713B /* ECMA 48.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900C91A546F880066713B /* ECMA 48.swift */; };
 		673900CC1A546FE00066713B /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CB1A546FE00066713B /* Wrap.swift */; };
 		673900CE1A54702D0066713B /* EightBitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CD1A54702D0066713B /* EightBitColor.swift */; };
 		673900D21A5482890066713B /* PrettyColors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; };
-		67843C221A6102200061C1D3 /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
-		67843C231A6102200061C1D3 /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
 		678D8CC21A58F50500F1FE02 /* Named.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D8CC11A58F50500F1FE02 /* Named.swift */; };
 		6799D19E1A5D9FC100B8840D /* PrettyColors.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 673900AB1A546F2D0066713B /* PrettyColors.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6799D1A01A5D9FD400B8840D /* PrettyColors.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -27,8 +24,11 @@
 		67B8DD7F1A5C86DD00F4CE19 /* Named.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D8CC11A58F50500F1FE02 /* Named.swift */; };
 		67B8DD801A5C86DD00F4CE19 /* EightBitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900CD1A54702D0066713B /* EightBitColor.swift */; };
 		67B8DD821A5C86E600F4CE19 /* PrettyColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 673900B01A546F2D0066713B /* PrettyColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		67B8DD9B1A5C8A9D00F4CE19 /* PrettyColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900BD1A546F2D0066713B /* PrettyColorsTests.swift */; };
 		67C9FB1D1A5C7CF100FDFE3A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FB1C1A5C7CF100FDFE3A /* Color.swift */; };
+		67E36B6C1A78267D00B3686F /* PrettyColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900BD1A546F2D0066713B /* PrettyColorsTests.swift */; };
+		67E36B6D1A78267E00B3686F /* PrettyColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900BD1A546F2D0066713B /* PrettyColorsTests.swift */; };
+		67E36B6E1A78305F00B3686F /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
+		67E36B6F1A78306000B3686F /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -450,8 +450,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				670CAA851A54831200EBB404 /* PrettyColorsTests.swift in Sources */,
-				67843C221A6102200061C1D3 /* Equality.swift in Sources */,
+				67E36B6C1A78267D00B3686F /* PrettyColorsTests.swift in Sources */,
+				67E36B6F1A78306000B3686F /* Equality.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,8 +472,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67B8DD9B1A5C8A9D00F4CE19 /* PrettyColorsTests.swift in Sources */,
-				67843C231A6102200061C1D3 /* Equality.swift in Sources */,
+				67E36B6D1A78267E00B3686F /* PrettyColorsTests.swift in Sources */,
+				67E36B6E1A78305F00B3686F /* Equality.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
