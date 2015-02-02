@@ -47,6 +47,10 @@ class PrettyColorsTests: XCTestCase {
 		Color.Wrap(foreground: nil as UInt8?, style: .Bold)
 		Color.Wrap(foreground: nil as Color.Named.Color?, style: .Bold)
 		[StyleParameter.Bold] as Color.Wrap
+		Color.Wrap(styles: .Bold)
+		
+		// Multiple
+		Color.Wrap(styles: .Bold, .Blink)
 	}
 	
 	func test_problem_TypeInference() {
@@ -182,6 +186,10 @@ class PrettyColorsTests: XCTestCase {
 			)
 		}(red)
 		
+		XCTAssert(
+			red + Color.Wrap(styles: .Bold) == Color.Wrap(foreground: .Red, style: .Bold)
+		)
+		
 		// Multiple
 		let _ = { (wrap: Color.Wrap) -> Void in
 			var formerlyRed = wrap
@@ -199,6 +207,10 @@ class PrettyColorsTests: XCTestCase {
 				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
 			)
 		}(red)
+
+		XCTAssert(
+			red + Color.Wrap(styles: .Bold, .Italic) == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
+		)
 	}
 
 	func testMutableAppend() {

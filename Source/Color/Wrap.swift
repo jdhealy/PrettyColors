@@ -75,6 +75,16 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		self.init(parameters: parameters)
 	}
 	
+	public init(styles: StyleParameter...) {
+		var parameters: [Parameter] = []
+		
+		for parameter in styles {
+			parameters.append(parameter)
+		}
+		
+		self.init(parameters: parameters)
+	}
+	
 	//------------------------------------------------------------------------------
 	// MARK: - SelectGraphicRenditionWrap
 	//------------------------------------------------------------------------------
