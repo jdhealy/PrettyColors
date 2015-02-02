@@ -105,17 +105,6 @@ class PrettyColorsTests: XCTestCase {
 
 	}
 
-	func testMutableAppend() {
-		var formerlyRedBold = Color.Wrap(foreground: .Red, style: .Bold)
-		let redBoldItalic = Color.Wrap(foreground: .Red, style: .Bold, .Italic)
-
-		formerlyRedBold.append(style: .Italic)
-		
-		XCTAssert(
-			formerlyRedBold == redBoldItalic
-		)
-	}
-	
 	func testEmptyWrap() {
 		XCTAssert(
 			Color.Wrap(parameters: []).code.enable == "",
@@ -168,6 +157,57 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 
+	
+	func testAppendStyleParameter() {
+		let red = Color.Wrap(foreground: .Red)
+		
+		let _ = { (wrap: Color.Wrap) -> Void in
+			var formerlyRed = wrap
+			formerlyRed.append(StyleParameter.Bold)
+			XCTAssert(
+				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold)
+			)
+		}(red)
+		
+		let _ = { (wrap: Color.Wrap) -> Void in
+			var formerlyRed = wrap
+			formerlyRed.append(style: .Bold)
+			XCTAssert(
+				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold)
+			)
+		}(red)
+		
+		// Multiple
+		let _ = { (wrap: Color.Wrap) -> Void in
+			var formerlyRed = wrap
+			formerlyRed.append(StyleParameter.Bold)
+			formerlyRed.append(StyleParameter.Italic)
+			XCTAssert(
+				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
+			)
+		}(red)
+		
+		let _ = { (wrap: Color.Wrap) -> Void in
+			var formerlyRed = wrap
+			formerlyRed.append(style: .Bold, .Italic)
+			XCTAssert(
+				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
+			)
+		}(red)
+	}
+
+	func testMutableAppend() {
+		var formerlyRed = Color.Wrap(foreground: .Red)
+		let redBlackBackground = Color.Wrap(foreground: .Red, background: .Black)
+		
+		
+		formerlyRed.append( Color.Named(background: .Black) )
+		
+		XCTAssert(
+			formerlyRed == redBlackBackground
+		)
+	}
+	
 	//------------------------------------------------------------------------------
 	// MARK: - Foreground/Background
 	//------------------------------------------------------------------------------
