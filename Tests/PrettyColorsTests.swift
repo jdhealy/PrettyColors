@@ -26,16 +26,21 @@ class PrettyColorsTests: XCTestCase {
 	}
 
 	func test_problem_SingleStyleParameter() {
-		//// As of `swift-600.0.57.3`, the following statement errors:
-		//// «Extra argument 'style' in call»
+		/*
+			As of `swift-600.0.57.3`, the following statement errors:
+			«Extra argument 'style' in call»
+		*/
 		// Color.Wrap(style: .Bold)
-		//// Removing the supposedly "extra" argument 'style' errors:
-		//// «'().Type' does not have a member named 'Bold'»
+
+		/*
+			Removing the supposedly "extra" argument 'style' errors:
+			«'().Type' does not have a member named 'Bold'»
+		*/
 		// Color.Wrap(.Bold)
 		
 		/*
 			The true problem appears to be the ambiguity between the 
-			two functions of the form «init(foreground:background:style:)».
+			two functions of the form `init(foreground:background:style:)`.
 		*/
 		
 		// Workarounds:
