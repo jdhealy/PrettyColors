@@ -19,8 +19,6 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		self.parameters = UnderlyingCollection(parameters)
 	}
 	
-	// This might be impossible to call…
-	// but, it needs to be defined for protocol conformance.
 	public init() {
 		self.init(
 			parameters: [] as UnderlyingCollection
