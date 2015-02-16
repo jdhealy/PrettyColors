@@ -131,110 +131,80 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	//------------------------------------------------------------------------------
 	// MARK: - Foreground/Background Helpers
 	//------------------------------------------------------------------------------
-	// FIXME: Ridiculous workaround “downcast” issue by using `switch`…
-	// `Cannot downcast from 'Parameter' to non-@objc protocol type 'ColorType'`
 	
-	struct Filters {
-
-		private static func level(level: Level) -> (Parameter -> Bool) {
-			return {
-				switch $0 {
-				// FIXME: Ridiculous workaround…
-				case let color as Color.Named:
-					return color.level == level
-				case let color as Color.EightBit:
-					return color.level == level
-				default:
-					return false
-				}
-			}
+	private func filter(#level: Level, inverse: Bool = false) -> Color.Wrap {
+		return self.filter {
+			let condition = ($0 as? ColorType)?.level == level ?? false
+			return inverse ? !condition : condition
 		}
-	
 	}
 	
 	public var foreground: Parameter? {
 		get {
-			return parameters.filter(
-				Filters.level(.Foreground)
-			).first
+			return self.filter(level: .Foreground).parameters.first
 		}
 		mutating set(newForeground) {
-			var newParameters = [Parameter]()
+			let initial: UnderlyingCollection
+			
 			if let newForeground = newForeground {
-				newParameters.append(newForeground)
+				initial = [newForeground]
+			} else {
+				initial = []
 			}
-			self.parameters = newParameters + parameters.filter {
-				!Filters.level(.Foreground)($0)
-			}
+
+			self.parameters = initial + self.filter(level: .Foreground, inverse: true).parameters
 		}
 	}
 	
 	public var background: Parameter? {
 		get {
-			return parameters.filter(
-				Filters.level(.Background)
-			).first
+			return self.filter(level: .Background).parameters.first
 		}
 		mutating set(newBackground) {
-			var newParameters = [Parameter]()
+			let initial: UnderlyingCollection
+			
 			if let newBackground = newBackground {
-				newParameters.append(newBackground)
+				initial = [newBackground]
+			} else {
+				initial = []
 			}
-			self.parameters = newParameters + parameters.filter {
-				!Filters.level(.Background)($0)
-			}
+			
+			self.parameters = initial + self.filter(level: .Background, inverse: true).parameters
 		}
 	}
 
-	
-	public mutating func foreground(transform: ColorType -> ColorType) -> Bool {
-		
-		var transformed = Bool?()
-		
-		self.parameters = self.parameters.map {
-			(parameter: Parameter) -> Parameter in
+	private func levelTransform(level: Level, transform: ColorType -> ColorType) -> (
+		transformed: Bool,
+		parameters: UnderlyingCollection
+	) {
+		return self.parameters.reduce(
+			(transformed: false, parameters: UnderlyingCollection())
+		) { (var previous, value) in
+			let additive: Parameter
 			
-			switch parameter {
-			// FIXME: Ridiculous workaround…
-			case let color as Color.Named:
-				transformed = true
-				if !(color.level == Level.Foreground) { return parameter }
-				return transform(color as ColorType)
-			case let color as Color.EightBit:
-				if !(color.level == Level.Foreground) { return parameter }
-				transformed = true
-				return transform(color as ColorType)
-			default:
-				return parameter
+			if let color = value as? ColorType where color.level == level {
+				additive = transform(color)
+				previous.transformed = true
+			} else {
+				additive = value
 			}
+			
+			previous.parameters.append(additive)
+			
+			return previous
 		}
-		
-		return transformed ?? false
 	}
 	
+	public mutating func foreground(transform: ColorType -> ColorType) -> Bool {
+		let transformation = levelTransform(.Foreground, transform: transform)
+		self.parameters = transformation.parameters
+		return transformation.transformed
+	}
+
 	public mutating func background(transform: ColorType -> ColorType) -> Bool {
-		
-		var transformed = Bool?()
-		
-		self.parameters = self.parameters.map {
-			(parameter: Parameter) -> Parameter in
-			
-			switch parameter {
-			// FIXME: Ridiculous workaround…
-			case let color as Color.Named:
-				transformed = true
-				if !(color.level == Level.Background) { return parameter }
-				return transform(color as ColorType)
-			case let color as Color.EightBit:
-				if !(color.level == Level.Foreground) { return parameter }
-				transformed = true
-				return transform(color as ColorType)
-			default:
-				return parameter
-			}
-		}
-		
-		return transformed ?? false
+		let transformation = levelTransform(.Background, transform: transform)
+		self.parameters = transformation.parameters
+		return transformation.transformed
 	}
 
 	//------------------------------------------------------------------------------
