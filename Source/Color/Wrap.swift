@@ -16,7 +16,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	//------------------------------------------------------------------------------
 
 	public init<S: SequenceType where S.Generator.Element == Element>(parameters: S) {
-		self.parameters = [] as UnderlyingCollection + parameters
+		self.parameters = UnderlyingCollection(parameters)
 	}
 	
 	// This might be impossible to call…
