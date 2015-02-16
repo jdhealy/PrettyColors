@@ -326,29 +326,12 @@ extension Color.Wrap: Equatable {
 	}
 	
 	private func setEqualilty(a: Color.Wrap, _ b: Color.Wrap) -> Bool {
-		if a.parameters.count != b.parameters.count {
-			return false
-		} else {
-			let stringify: (Parameter) -> String = {
-				join( "-", $0.code.enable.map { String($0) } )
-			}
-			
-			let sort: (Parameter, Parameter) -> Bool = {
-				(one, two) in
-				return stringify(one) > stringify (two)
-			}
-			
-			var x = a.parameters.sorted(sort)
-			var y = b.parameters.sorted(sort)
-			
-			return x.reduce((equal: true, index: y.startIndex)) {
-				(previous, value) in
-				return (
-					previous.equal && value == y[previous.index],
-					previous.index + 1
-				)
-			}.equal
-		}
+		
+		let x = Set( a.parameters.map { toString($0.code.enable) } )
+		let y = Set( b.parameters.map { toString($0.code.enable) } )
+		
+		return x == y
+		
 	}
 	
 	public func isEqual(to other: Color.Wrap, equality: Color.Wrap.EqualityType = .Array) -> Bool {
