@@ -289,7 +289,7 @@ class PrettyColorsTests: XCTestCase {
 	func testTransformForegroundToBright() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
 		formerlyRed.foreground { (var color: ColorType) -> ColorType in
-			var clone = color as Color.Named
+			var clone = color as! Color.Named
 			clone.brightness.toggle()
 			return clone
 		}
@@ -303,7 +303,7 @@ class PrettyColorsTests: XCTestCase {
 	
 	func testComputedVariableForegroundEquality() {
 		XCTAssert(
-			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as Color.Named
+			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as! Color.Named
 		)
 	}
 
