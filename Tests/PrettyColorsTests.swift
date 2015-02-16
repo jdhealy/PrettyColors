@@ -267,7 +267,7 @@ class PrettyColorsTests: XCTestCase {
 		formerlyRed.foreground { (var color: ColorType) -> ColorType in
 			if let color = color as? Color.EightBit {
 				var soonYellow = color
-				soonYellow.color += (227-124)
+				soonYellow.color += (227 as UInt8 - 124)
 				return soonYellow
 			} else { return color }
 		}
