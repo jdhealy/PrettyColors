@@ -132,7 +132,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	
 	private func filter(#level: Level, inverse: Bool = false) -> Color.Wrap {
 		return self.filter {
-			let condition = ($0 as? ColorType)?.level == level ?? false
+			let condition = (($0 as? ColorType)?.level == level) ?? false
 			return inverse ? !condition : condition
 		}
 	}
