@@ -267,7 +267,7 @@ class PrettyColorsTests: XCTestCase {
 		formerlyRed.foreground { (var color: ColorType) -> ColorType in
 			if let color = color as? Color.EightBit {
 				var soonYellow = color
-				soonYellow.color += (227-124)
+				soonYellow.color += (227 as UInt8 - 124)
 				return soonYellow
 			} else { return color }
 		}
@@ -289,7 +289,7 @@ class PrettyColorsTests: XCTestCase {
 	func testTransformForegroundToBright() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
 		formerlyRed.foreground { (var color: ColorType) -> ColorType in
-			var clone = color as Color.Named
+			var clone = color as! Color.Named
 			clone.brightness.toggle()
 			return clone
 		}
@@ -303,7 +303,7 @@ class PrettyColorsTests: XCTestCase {
 	
 	func testComputedVariableForegroundEquality() {
 		XCTAssert(
-			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as Color.Named
+			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as! Color.Named
 		)
 	}
 
@@ -368,9 +368,9 @@ class PrettyColorsTests: XCTestCase {
 					] {
 						let wrap = (wrapAndSuffix.0 + [parameter] as Color.Wrap)
 						let suffix = wrapAndSuffix.1
-						let string = "• " + wrap.wrap("__|øat·•ªº^∆©|__") +
-							" " + NSString(format: "%02d", i) + " + " + suffix
-						println(string)
+						let formattedNumber = NSString(format: "%02d", i) as! String
+
+						println("• " + wrap.wrap("__|øat·•ªº^∆©|__") + " \(formattedNumber) + \(suffix)")
 					}
 				}
 			}
