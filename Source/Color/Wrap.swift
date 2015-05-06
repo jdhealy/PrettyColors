@@ -230,10 +230,9 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 //------------------------------------------------------------------------------
 
 extension Color.Wrap: SequenceType {
-	public typealias Generator = GeneratorOf<Element>
+	public typealias Generator = IndexingGenerator<Array<Element>>
 	public func generate() -> Generator {
-		var generator = parameters.generate()
-		return GeneratorOf { return generator.next() }
+		return parameters.generate()
 	}
 }
 
