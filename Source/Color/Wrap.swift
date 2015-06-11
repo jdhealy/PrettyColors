@@ -96,7 +96,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 
 		let disableAll = [StyleParameter.Reset.defaultRendition]
 		
-		var (enables, disables) = self.parameters.reduce(
+		let (enables, disables) = self.parameters.reduce(
 			(enable: [UInt8](), disable: [UInt8]())
 		) { (var previous, value) in
 			previous.enable += value.code.enable
