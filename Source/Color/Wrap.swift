@@ -264,7 +264,7 @@ extension Color.Wrap: ExtensibleCollectionType {
 		parameters.append(newElement)
 	}
 	
-	public mutating func append(#style: StyleParameter...) {
+	public mutating func append(style style: StyleParameter...) {
 		for parameter in style {
 			parameters.append(parameter)
 		}
