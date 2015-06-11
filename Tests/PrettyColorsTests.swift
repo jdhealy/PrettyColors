@@ -126,7 +126,7 @@ class PrettyColorsTests: XCTestCase {
 	}
 	
 	func testMulti() {
-		var multi = [
+		let multi = [
 			Color.EightBit(foreground: 227),
 			Color.Named(foreground: .Green, brightness: .NonBright)
 		] as Color.Wrap
