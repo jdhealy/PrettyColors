@@ -294,8 +294,8 @@ extension Color.Wrap: Equatable {
 	
 	private func setEqualilty(a: Color.Wrap, _ b: Color.Wrap) -> Bool {
 		
-		let x = Set( a.parameters.map { toString($0.code.enable) } )
-		let y = Set( b.parameters.map { toString($0.code.enable) } )
+		let x = Set( a.parameters.map { String($0.code.enable) } )
+		let y = Set( b.parameters.map { String($0.code.enable) } )
 		
 		return x == y
 		
