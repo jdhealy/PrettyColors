@@ -112,10 +112,10 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		
 		return (
 			enable: ECMA48.controlSequenceIntroducer +
-				join(";", enables.map { String($0) } ) +
+				";".join( enables.map { String($0) } ) +
 				"m",
 			disable: ECMA48.controlSequenceIntroducer +
-				join(";", disables.map { String($0) } ) +
+				";".join( disables.map { String($0) } ) +
 				"m"
 		)
 	}
