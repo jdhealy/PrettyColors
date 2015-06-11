@@ -240,7 +240,7 @@ extension Color.Wrap: SequenceType {
 // MARK: - Wrap: CollectionType
 //------------------------------------------------------------------------------
 
-extension Color.Wrap: MutableCollectionType {
+extension Color.Wrap: CollectionType, MutableCollectionType {
 	public typealias Index = UnderlyingCollection.Index
 	public var startIndex: Index { return parameters.startIndex }
 	public var endIndex: Index { return parameters.endIndex }
