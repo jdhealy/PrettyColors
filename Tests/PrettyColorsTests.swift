@@ -15,7 +15,7 @@ class PrettyColorsTests: XCTestCase {
 	
 	func test_basics() {
 		let redText: String = Color.Wrap(foreground: .Red).wrap("A red piece of text.")
-		println(redText)
+		print(redText)
 		
 		Color.Wrap(foreground: .Yellow, style: .Bold)
 		Color.Wrap(foreground: .Green, background: .Black, style: .Bold, .Underlined)
@@ -373,7 +373,7 @@ class PrettyColorsTests: XCTestCase {
 						let suffix = wrapAndSuffix.1
 						let formattedNumber = NSString(format: "%02d", i) as String
 
-						println("• " + wrap.wrap("__|øat·•ªº^∆©|__") + " \(formattedNumber) + \(suffix)")
+						print("• " + wrap.wrap("__|øat·•ªº^∆©|__") + " \(formattedNumber) + \(suffix)")
 					}
 				}
 			}
