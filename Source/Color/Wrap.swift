@@ -204,22 +204,6 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		self.parameters = transformation.parameters
 		return transformation.transformed
 	}
-
-	//------------------------------------------------------------------------------
-	// MARK: - Big Three
-	//------------------------------------------------------------------------------
-	
-	public func map<T>(transform: Element -> T) -> [T] {
-		return Swift.map(self, transform)
-	}
-
-	public func filter(includeElement: Element -> Bool) -> Color.Wrap {
-		return Color.Wrap(parameters: Swift.filter(self, includeElement))
-	}
-	
-	public func reduce<U>(initial: U, combine: (U, Element) -> U) -> U {
-		return Swift.reduce(self, initial, combine)
-	}
 	
 }
 
