@@ -130,7 +130,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	// MARK: - Foreground/Background Helpers
 	//------------------------------------------------------------------------------
 	
-	private func filter(#level: Level, inverse: Bool = false) -> Color.Wrap {
+	private func filter(level level: Level, inverse: Bool = false) -> UnderlyingCollection {
 		return self.filter {
 			let condition = (($0 as? ColorType)?.level == level) ?? false
 			return inverse ? !condition : condition
@@ -139,7 +139,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	
 	public var foreground: Parameter? {
 		get {
-			return self.filter(level: .Foreground).parameters.first
+			return self.filter(level: .Foreground).first
 		}
 		mutating set(newForeground) {
 			let initial: UnderlyingCollection
@@ -150,13 +150,13 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 				initial = []
 			}
 
-			self.parameters = initial + self.filter(level: .Foreground, inverse: true).parameters
+			self.parameters = initial + self.filter(level: .Foreground, inverse: true)
 		}
 	}
 	
 	public var background: Parameter? {
 		get {
-			return self.filter(level: .Background).parameters.first
+			return self.filter(level: .Background).first
 		}
 		mutating set(newBackground) {
 			let initial: UnderlyingCollection
@@ -167,7 +167,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 				initial = []
 			}
 			
-			self.parameters = initial + self.filter(level: .Background, inverse: true).parameters
+			self.parameters = initial + self.filter(level: .Background, inverse: true)
 		}
 	}
 
