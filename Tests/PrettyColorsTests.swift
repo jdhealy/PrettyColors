@@ -264,7 +264,7 @@ class PrettyColorsTests: XCTestCase {
 
 	func testTransformForeground2() {
 		var formerlyRed = Color.Wrap(foreground: 124)
-		formerlyRed.foreground { (var color: ColorType) -> ColorType in
+		formerlyRed.foreground { (color: ColorType) -> ColorType in
 			if let color = color as? Color.EightBit {
 				var soonYellow = color
 				soonYellow.color += (227 as UInt8 - 124)
@@ -276,7 +276,7 @@ class PrettyColorsTests: XCTestCase {
 	
 	func testTransformForegroundWithVar() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
-		formerlyRed.foreground { (var color: ColorType) -> ColorType in
+		formerlyRed.foreground { (color: ColorType) -> ColorType in
 			if let namedColor = color as? Color.Named {
 				var soonYellow = namedColor
 				soonYellow.color = .Yellow
@@ -288,7 +288,7 @@ class PrettyColorsTests: XCTestCase {
 
 	func testTransformForegroundToBright() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
-		formerlyRed.foreground { (var color: ColorType) -> ColorType in
+		formerlyRed.foreground { (color: ColorType) -> ColorType in
 			var clone = color as! Color.Named
 			clone.brightness.toggle()
 			return clone
