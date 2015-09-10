@@ -1,4 +1,8 @@
 
+//------------------------------------------------------------------------------
+// MARK: - ECMA 48
+//------------------------------------------------------------------------------
+
 public struct ECMA48 {
 	/// “ESC is used for code extension purposes. It causes the meanings of a limited 
 	/// number of bit combinations following it in the data stream to be changed.”
@@ -6,6 +10,10 @@ public struct ECMA48 {
 	/// “used as the first character of a control sequence”
 	public static let controlSequenceIntroducer = escape + "["
 }
+
+//------------------------------------------------------------------------------
+// MARK: - SelectGraphicRendition
+//------------------------------------------------------------------------------
 
 public typealias SelectGraphicRendition = String
 
@@ -21,10 +29,17 @@ public protocol SelectGraphicRenditionWrapType {
 	
 }
 
+//------------------------------------------------------------------------------
+// MARK: - Parameter
+//------------------------------------------------------------------------------
+
 public protocol Parameter {
 	var code: (enable: [UInt8], disable: UInt8?) { get }
 }
 
+//------------------------------------------------------------------------------
+// MARK: - Parameter: Equatable
+//------------------------------------------------------------------------------
 /// Defines equality for Parameters.
 public func == (a: Parameter, b: Parameter) -> Bool {
 	return a.code.enable == b.code.enable
