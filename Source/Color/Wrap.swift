@@ -112,14 +112,15 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 			return (enable: appendedEnable, disable: previous.disable + [disable])
 		}
 		
-		return (
-			enable: ECMA48.controlSequenceIntroducer +
-				";".join( enables.map { String($0) } ) +
-				"m",
-			disable: ECMA48.controlSequenceIntroducer +
-				";".join( disables.map { String($0) } ) +
-				"m"
-		)
+		let render = {
+			ECMA48.controlSequenceIntroducer
+			+ ($0 as [UInt8])
+				.map(String.init)
+				.joinWithSeparator(";")
+			+ "m"
+		}
+		
+		return (enable: render(enables), disable: render(disables))
 	}
 	
 	/// Wraps the enable and disable SelectGraphicRendition codes around a string.
