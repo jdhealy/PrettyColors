@@ -149,10 +149,10 @@ class PrettyColorsTests: XCTestCase {
 				(previous, value) in
 				return previous && value.parameters.reduce(true) {
 					(previous, value) in
-					// For some reason, this `enable` call avoids the 
+					// For some reason, referencing `value` avoids the
 					// `Expression was too complex to be solved in reasonable time` 
 					// error for the returned expression… 😕
-					_ = value.code.enable 
+					_ = value
 					return previous && (
 						value == Color.Named(foreground: .Red) as Parameter ||
 						value == Color.Named(background: .Black) as Parameter ||
