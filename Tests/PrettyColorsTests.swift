@@ -372,36 +372,31 @@ class PrettyColorsTests: XCTestCase {
 	//------------------------------------------------------------------------------
 	
 	func testZapAllStyleParameters() {
-		
-		let red = Color.Named(foreground: .Red)
-		let niceColor = Color.EightBit(foreground: 114)
-		
-		let iterables: Array<Array<Parameter>> = [
-			[red],
-			[niceColor],
-		]
 	
-		for parameters in iterables {
+		for wrap in [
+			Color.Wrap(foreground: .Red),
+			Color.Wrap(foreground: 114)
+		] {
+			for (number, style·wrap) in (
+				(1 as UInt8 ... 55).flatMap /* more accurately, concatenate optionals */ {
+					guard let style = StyleParameter(rawValue: $0) else { return nil }
+					return ($0 as UInt8, [style] as Color.Wrap)
+				} /* type-inference fails without */ as [(UInt8, Color.Wrap)]
+			) {
+				let formatted·number = NSString(format: "%02d", number) as String
 
-			let wrap = Color.Wrap(parameters: parameters)
-			
-			for i in stride(from: 1 as UInt8, through: 55, by: 1) {
-				if let parameter = StyleParameter(rawValue: i) {
-					for wrapAndSuffix in [
-						(wrap, "normal"),
-						(wrap + [ StyleParameter.Bold ] as Color.Wrap, "bold"),
-						(wrap + [ StyleParameter.Italic ] as Color.Wrap, "italic"),
-						(wrap + [ StyleParameter.Underlined ] as Color.Wrap, "underlined")
-					] {
-						let wrap = (wrapAndSuffix.0 + [parameter] as Color.Wrap)
-						let suffix = wrapAndSuffix.1
-						let formattedNumber = NSString(format: "%02d", i) as String
-
-						print("• " + wrap.wrap("__|øat·•ªº^∆©|__") + " \(formattedNumber) + \(suffix)")
-					}
+				for (appended·wrap, suffix) in [
+					(wrap, "normal") as (Color.Wrap, String),
+					(wrap + [ StyleParameter.Bold ], "bold"),
+					(wrap + [ StyleParameter.Italic ], "italic"),
+					(wrap + [ StyleParameter.Underlined ], "underlined")
+				] {
+					let styled·output = (appended·wrap + style·wrap).wrap("__|øat·•ªº^∆©|__")
+					print( "• \(styled·output) \(formatted·number) + \(suffix)" )
 				}
 			}
 		}
+
 	}
 
 }
