@@ -199,10 +199,17 @@ extension Color.Wrap: CollectionType, MutableCollectionType {
 }
 
 //------------------------------------------------------------------------------
-// MARK: - Wrap: ExtensibleCollectionType
+// MARK: - Wrap: RangeReplaceableCollectionType
 //------------------------------------------------------------------------------
 
-extension Color.Wrap: ExtensibleCollectionType {
+extension Color.Wrap: RangeReplaceableCollectionType {
+	public mutating func replaceRange<C: CollectionType where C.Generator.Element == Generator.Element>(
+		subRange: Range<Index>, with newElements: C
+	) {
+		parameters.replaceRange(subRange, with: newElements)
+	}
+
+	
 	public mutating func reserveCapacity(n: Index.Distance) {
 		parameters.reserveCapacity(n)
 	}
@@ -217,8 +224,8 @@ extension Color.Wrap: ExtensibleCollectionType {
 		}
 	}
 	
-	public mutating func extend <S: SequenceType where S.Generator.Element == Element> (sequence: S) {
-		parameters.extend(sequence)
+	public mutating func appendContentsOf<S: SequenceType where S.Generator.Element == Element>(sequence: S) {
+		parameters.appendContentsOf(sequence)
 	}
 }
 
