@@ -274,6 +274,18 @@ class PrettyColorsTests: XCTestCase {
 		XCTAssert( formerlyRed == Color.Wrap(foreground: 227) )
 	}
 	
+	func testTransformForeground2_withGuard() {
+		var formerlyRed = Color.Wrap(foreground: 124) // will soon be yellow…
+		formerlyRed.foreground { (color: ColorType) -> ColorType in
+			guard let eight·bit·color = color as? Color.EightBit else { return color }
+			
+			return Color.EightBit(
+				foreground: UInt8.addWithOverflow(eight·bit·color.color, 227 - 124).0
+			)
+		}
+		XCTAssert( formerlyRed == Color.Wrap(foreground: 227) )
+	}
+	
 	func testTransformForegroundWithVar() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
 		formerlyRed.foreground { (color: ColorType) -> ColorType in
