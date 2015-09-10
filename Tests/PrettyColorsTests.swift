@@ -27,30 +27,21 @@ class PrettyColorsTests: XCTestCase {
 
 	func test_problem_SingleStyleParameter() {
 		/*
-			As of `swift-600.0.57.3`, the following statement errors:
-			«Extra argument 'style' in call»
+			As of `swiftlang-700.0.57.3`, the following statement errors:
+			«Ambiguous use of 'init(foreground:background:style:)'»
 		*/
 		// Color.Wrap(style: .Bold)
-
-		/*
-			Removing the supposedly "extra" argument 'style' errors:
-			«'().Type' does not have a member named 'Bold'»
-		*/
-		// Color.Wrap(.Bold)
 		
-		/*
-			The true problem appears to be the ambiguity between the 
-			two functions of the form `init(foreground:background:style:)`.
-		*/
-		
-		// Workarounds:
-		Color.Wrap(foreground: nil as UInt8?, style: .Bold)
-		Color.Wrap(foreground: nil as Color.Named.Color?, style: .Bold)
-		[StyleParameter.Bold] as Color.Wrap
-		Color.Wrap(styles: .Bold)
-		
-		// Multiple
-		Color.Wrap(styles: .Bold, .Blink)
+		_ = ((
+			// Workarounds:
+			Color.Wrap(foreground: nil as UInt8?, style: .Bold),
+			Color.Wrap(foreground: nil as Color.Named.Color?, style: .Bold),
+			[StyleParameter.Bold] as Color.Wrap,
+			Color.Wrap(styles: .Bold),
+			
+			// Multiple
+			Color.Wrap(styles: .Bold, .Blink)
+		))
 	}
 	
 	func test_problem_TypeInference() {
