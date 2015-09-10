@@ -239,6 +239,9 @@ class PrettyColorsTests: XCTestCase {
 		formerlyRed.foreground = nil
 		
 		XCTAssert(
+			formerlyRed == Color.Wrap(foreground: nil as Color.Named.Color?)
+		)
+		XCTAssert(
 			formerlyRed == Color.Wrap(foreground: nil as UInt8?)
 		)
 	}
