@@ -40,6 +40,10 @@ public protocol Parameter {
 //------------------------------------------------------------------------------
 // MARK: - Parameter: Equatable
 //------------------------------------------------------------------------------
+
+// `Parameter` cannot conform to the `Swift.Equatable` protocol (as of swiftlang-700.0.57.3)
+// because of Self requirements, which prevent `Parameter`s from being array elements.
+
 /// Defines equality for Parameters.
 public func == (a: Parameter, b: Parameter) -> Bool {
 	return a.code.enable == b.code.enable
