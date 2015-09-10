@@ -145,15 +145,9 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 			return self.filter(level: .Foreground).first
 		}
 		mutating set(newForeground) {
-			let initial: UnderlyingCollection
-			
-			if let newForeground = newForeground {
-				initial = [newForeground]
-			} else {
-				initial = []
-			}
-
-			self.parameters = initial + self.filter(level: .Foreground, inverse: true)
+			self.parameters =
+				[newForeground].flatMap { $0 } + // Empty array or array containing new foreground
+				self.filter(level: .Foreground, inverse: true) // All non-foreground parameters
 		}
 	}
 	
@@ -162,15 +156,9 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 			return self.filter(level: .Background).first
 		}
 		mutating set(newBackground) {
-			let initial: UnderlyingCollection
-			
-			if let newBackground = newBackground {
-				initial = [newBackground]
-			} else {
-				initial = []
-			}
-			
-			self.parameters = initial + self.filter(level: .Background, inverse: true)
+			self.parameters =
+				[newBackground].flatMap { $0 } + // Empty array or array containing new background
+				self.filter(level: .Background, inverse: true) // All non-background parameters
 		}
 	}
 
