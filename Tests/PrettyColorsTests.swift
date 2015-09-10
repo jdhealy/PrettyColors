@@ -17,12 +17,14 @@ class PrettyColorsTests: XCTestCase {
 		let redText: String = Color.Wrap(foreground: .Red).wrap("A red piece of text.")
 		print(redText)
 		
-		Color.Wrap(foreground: .Yellow, style: .Bold)
-		Color.Wrap(foreground: .Green, background: .Black, style: .Bold, .Underlined)
-		
-		// 8-bit (256) color support
-		Color.Wrap(foreground: 114)
-		Color.Wrap(foreground: 114, style: .Bold)
+		_ = ((
+			Color.Wrap(foreground: .Yellow, style: .Bold),
+			Color.Wrap(foreground: .Green, background: .Black, style: .Bold, .Underlined),
+			
+			// 8-bit (256) color support
+			Color.Wrap(foreground: 114),
+			Color.Wrap(foreground: 114, style: .Bold)
+		))
 	}
 
 	func test_problem_SingleStyleParameter() {
@@ -56,30 +58,31 @@ class PrettyColorsTests: XCTestCase {
 			]
 		)
 		*/
+		
+		_ = ((
+			// Workarounds:
+			Color.Wrap(
+				parameters: [
+					Color.Named(foreground: .Green),
+					Color.EightBit(foreground: 114),
+					StyleParameter.Bold
+				] as [Color.Wrap.Element]
+			),
 
-		// Workarounds:
-		Color.Wrap(
-			parameters: [
+			Color.Wrap(
+				parameters: [
+					Color.Named(foreground: .Green),
+					Color.EightBit(foreground: 114),
+					StyleParameter.Bold
+				] as [Parameter]
+			),
+
+			[
 				Color.Named(foreground: .Green),
 				Color.EightBit(foreground: 114),
 				StyleParameter.Bold
-			] as [Color.Wrap.Element]
-		)
-
-		Color.Wrap(
-			parameters: [
-				Color.Named(foreground: .Green),
-				Color.EightBit(foreground: 114),
-				StyleParameter.Bold
-			] as [Parameter]
-		)
-
-		[
-			Color.Named(foreground: .Green),
-			Color.EightBit(foreground: 114),
-			StyleParameter.Bold
-		] as Color.Wrap
-
+			] as Color.Wrap
+		))
 	}
 
 	func testImmutableFilterOrMap() {
