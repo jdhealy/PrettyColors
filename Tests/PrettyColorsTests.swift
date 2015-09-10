@@ -320,34 +320,47 @@ class PrettyColorsTests: XCTestCase {
 	}
 
 	func testEightBitForegroundBackgroundDifference() {
-		let one = Color.EightBit(foreground: 114)
-		let two = Color.EightBit(background: 114)
+		let foreground = Color.Named(foreground: .Green).code.enable
+		let background = Color.Named(background: .Green).code.enable
 		
-		let difference = one.code.enable.reduce(
-			two.code.enable.reduce(0 as UInt8) { return $0.0 + $0.1 }
-		) { return $0.0 - $0.1 }
+		let difference = zip(foreground, background)
+			.map {
+				$0 as (foreground: UInt8, background: UInt8)
+			}
+			.reduce(0 as UInt8) { sum, values in
+				return sum + values.background - values.foreground
+			}
 		
 		XCTAssert( difference == 10 )
 	}
 
 	func testNamedForegroundBackgroundDifference() {
-		let one = Color.Named(foreground: .Green)
-		let two = Color.Named(background: .Green)
+		let foreground = Color.Named(foreground: .Green).code.enable
+		let background = Color.Named(background: .Green).code.enable
 		
-		let difference = one.code.enable.reduce(
-			two.code.enable.reduce(0 as UInt8) { return $0.0 + $0.1 }
-		) { return $0.0 - $0.1 }
+		let difference = zip(foreground, background)
+			.map {
+				$0 as (foreground: UInt8, background: UInt8)
+			}
+			.reduce(0 as UInt8) { sum, values in
+				return sum + values.background - values.foreground
+			}
 		
 		XCTAssert( difference == 10 )
 	}
 	
 	func testNamedBrightnessDifference() {
-		let one = Color.Named(foreground: .Green)
-		let two = Color.Named(foreground: .Green, brightness: .Bright)
+		let non·bright = Color.Named(foreground: .Green).code.enable
+		let bright = Color.Named(foreground: .Green, brightness: .Bright).code.enable
 		
-		let difference = one.code.enable.reduce(
-			two.code.enable.reduce(0 as UInt8) { return $0.0 + $0.1 }
-		) { return $0.0 - $0.1 }
+		let difference = zip(non·bright, bright)
+			.map {
+				$0 as (non·bright: UInt8, bright: UInt8)
+			}
+			.reduce(0 as UInt8) { sum, values in
+				return sum + values.bright - values.non·bright
+			}
+
 		
 		XCTAssert( difference == 60 )
 	}
