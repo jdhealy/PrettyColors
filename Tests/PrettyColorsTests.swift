@@ -89,23 +89,25 @@ class PrettyColorsTests: XCTestCase {
 		let redBold = Color.Wrap(foreground: .Red, style: .Bold)
 		let redItalic = Color.Wrap(foreground: .Red, style: .Italic)
 		
+		// Filter
 		XCTAssert(
 			redBold == redItalic
 				.filter { $0 != StyleParameter.Italic }
 				+ [ StyleParameter.Bold ]
 		)
 		
+		// Map
 		XCTAssert(
-			redBold == Color.Wrap(
-				parameters: redItalic
-					.map { (parameter: Parameter) in
-						return parameter == StyleParameter.Italic
-						? StyleParameter.Bold
-						: parameter
+			// `ArrayLiteralConvertible` inferred
+			[] + redItalic
+				.map {
+					switch $0 as? StyleParameter {
+						case .Some: /* replace value */ return StyleParameter.Bold
+						case .None: /* same value */ return $0
 					}
-			)
+				}
+				== redBold
 		)
-
 	}
 
 	func testEmptyWrap() {
