@@ -98,16 +98,18 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		
 		let (enables, disables) = self.parameters.reduce(
 			(enable: [] as [UInt8], disable: [] as [UInt8])
-		) { (var previous: (enable: [UInt8], disable: [UInt8]), value) in
-			previous.enable += value.code.enable
-			if previous.disable != disableAll {
-				if let disable = value.code.disable {
-					previous.disable.append(disable)
-				} else {
-					previous.disable = disableAll
-				}
+		) { (previous: (enable: [UInt8], disable: [UInt8]), value) in
+			let code = value.code
+			let appendedEnable = previous.enable + code.enable
+			
+			guard
+				previous.disable != disableAll,
+				let disable = code.disable
+			else {
+				return (enable: appendedEnable, disable: disableAll)
 			}
-			return previous
+			
+			return (enable: appendedEnable, disable: previous.disable + [disable])
 		}
 		
 		return (
