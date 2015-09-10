@@ -34,21 +34,12 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		background: Color.Named.Color? = nil,
 		style: StyleParameter...
 	) {
-		var parameters: [Parameter] = []
+		let colors: [Parameter] = [
+			foreground.map { Color.Named(foreground: $0) },
+			background.map { Color.Named(background: $0) }
+		].flatMap { $0 } // concatenate non-nil ColorType parameters
 		
-		if let foreground = foreground {
-			parameters.append( Color.Named(foreground: foreground) )
-		}
-		
-		if let background = background {
-			parameters.append( Color.Named(background: background) )
-		}
-		
-		for parameter in style {
-			parameters.append(parameter)
-		}
-		
-		self.init(parameters: parameters)
+		self.init(parameters: colors + style.map { $0 as Parameter })
 	}
 	
 	public init(
@@ -56,31 +47,16 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		background: UInt8? = nil,
 		style: StyleParameter...
 	) {
-		var parameters: [Parameter] = []
+		let colors: [Parameter] = [
+			foreground.map { Color.EightBit(foreground: $0) },
+			background.map { Color.EightBit(background: $0) }
+		].flatMap { $0 } // concatenate non-nil ColorType parameters
 		
-		if let foreground = foreground {
-			parameters.append( Color.EightBit(foreground: foreground) )
-		}
-		
-		if let background = background {
-			parameters.append( Color.EightBit(background: background) )
-		}
-		
-		for parameter in style {
-			parameters.append(parameter)
-		}
-		
-		self.init(parameters: parameters)
+		self.init(parameters: colors + style.map { $0 as Parameter })
 	}
 	
 	public init(styles: StyleParameter...) {
-		var parameters: [Parameter] = []
-		
-		for parameter in styles {
-			parameters.append(parameter)
-		}
-		
-		self.init(parameters: parameters)
+		self.init(parameters: styles.map { $0 as Parameter })
 	}
 	
 	//------------------------------------------------------------------------------
@@ -167,20 +143,14 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		parameters: UnderlyingCollection
 	) {
 		return self.parameters.reduce(
-			(transformed: false, parameters: UnderlyingCollection())
+			(transformed: false, parameters: [] as UnderlyingCollection)
 		) { (var previous, value) in
-			let additive: Parameter
-			
-			if let color = value as? ColorType where color.level == level {
-				additive = transform(color)
-				previous.transformed = true
-			} else {
-				additive = value
+			guard let color = value as? ColorType where color.level == level else {
+				previous.parameters.append(value)
+				return previous
 			}
-			
-			previous.parameters.append(additive)
-			
-			return previous
+
+			return (transformed: true, parameters: previous.parameters + [transform(color)])
 		}
 	}
 	
