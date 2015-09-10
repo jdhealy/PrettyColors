@@ -48,7 +48,7 @@ class PrettyColorsTests: XCTestCase {
 	
 	func test_problem_TypeInference() {
 
-		// As of `swift-600.0.57.3`, this doesn't get type-inferred properly.
+		// As of `swiftlang-700.0.57.3`, this doesn't get type-inferred properly.
 		/*
 		Color.Wrap(
 			parameters: [
