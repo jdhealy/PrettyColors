@@ -326,11 +326,9 @@ class PrettyColorsTests: XCTestCase {
 		let background = Color.Named(background: .Green).code.enable
 		
 		let difference = zip(foreground, background)
-			.map {
-				$0 as (foreground: UInt8, background: UInt8)
-			}
 			.reduce(0 as UInt8) { sum, values in
-				return sum + values.background - values.foreground
+				let (foreground, background) = values
+				return sum + background - foreground
 			}
 		
 		XCTAssert( difference == 10 )
@@ -341,11 +339,9 @@ class PrettyColorsTests: XCTestCase {
 		let background = Color.Named(background: .Green).code.enable
 		
 		let difference = zip(foreground, background)
-			.map {
-				$0 as (foreground: UInt8, background: UInt8)
-			}
 			.reduce(0 as UInt8) { sum, values in
-				return sum + values.background - values.foreground
+				let (foreground, background) = values
+				return sum + background - foreground
 			}
 		
 		XCTAssert( difference == 10 )
@@ -356,13 +352,10 @@ class PrettyColorsTests: XCTestCase {
 		let bright = Color.Named(foreground: .Green, brightness: .Bright).code.enable
 		
 		let difference = zip(non·bright, bright)
-			.map {
-				$0 as (non·bright: UInt8, bright: UInt8)
-			}
 			.reduce(0 as UInt8) { sum, values in
-				return sum + values.bright - values.non·bright
+				let (non·bright, bright) = values
+				return sum + bright - non·bright
 			}
-
 		
 		XCTAssert( difference == 60 )
 	}
