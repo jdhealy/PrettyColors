@@ -258,7 +258,7 @@ class PrettyColorsTests: XCTestCase {
 	
 	func testTransformForeground() {
 		var formerlyRed = Color.Wrap(foreground: .Red)
-		formerlyRed.foreground { color in
+		formerlyRed.foreground { _ in
 			return Color.EightBit(foreground: 227) // A nice yellow
 		}
 		XCTAssert( formerlyRed == Color.Wrap(foreground: 227) )
