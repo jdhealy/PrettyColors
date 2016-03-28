@@ -18,10 +18,10 @@ extension Color {
 			public var additive: UInt8 { return self == .Bright ? 60 : 0 }
 			
 			public mutating func toggle() {
-                switch self {
-                case .Bright: self = .NonBright
-                case .NonBright: self = .Bright
-                }
+				switch self {
+				case .Bright: self = .NonBright
+				case .NonBright: self = .Bright
+				}
 			}
 			
 		}
