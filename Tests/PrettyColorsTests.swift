@@ -380,11 +380,13 @@ class PrettyColorsTests: XCTestCase {
 				let formatted·number = NSString(format: "%02d", number) as String
 
 				for (appended·wrap, suffix) in [
-					(wrap, "normal") as (Color.Wrap, String),
+					(wrap, "normal"),
+					// TODO: Investigate why `as (Color.Wrap, String)` before above comma 
+					// doesn't provide enough type info for the remaining lines in the array.
 					(wrap + [ StyleParameter.Bold ], "bold"),
 					(wrap + [ StyleParameter.Italic ], "italic"),
 					(wrap + [ StyleParameter.Underlined ], "underlined")
-				] {
+				] /* type-inference fails without */ as [(Color.Wrap, String)] {
 					let styled·output = (appended·wrap + style·wrap).wrap("__|øat·•ªº^∆©|__")
 					print( "• \(styled·output) \(formatted·number) + \(suffix)" )
 				}
