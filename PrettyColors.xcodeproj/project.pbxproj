@@ -82,7 +82,7 @@
 		673900BD1A546F2D0066713B /* PrettyColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyColorsTests.swift; sourceTree = "<group>"; };
 		673900C71A546F530066713B /* StyleParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleParameter.swift; sourceTree = "<group>"; };
 		673900C91A546F880066713B /* ECMA 48.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ECMA 48.swift"; sourceTree = "<group>"; };
-		673900CB1A546FE00066713B /* Wrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrap.swift; sourceTree = "<group>"; };
+		673900CB1A546FE00066713B /* Wrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Wrap.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		673900CD1A54702D0066713B /* EightBitColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EightBitColor.swift; sourceTree = "<group>"; };
 		67843C211A6102200061C1D3 /* Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Equality.swift; sourceTree = "<group>"; };
 		678D8CC11A58F50500F1FE02 /* Named.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Named.swift; sourceTree = "<group>"; };
