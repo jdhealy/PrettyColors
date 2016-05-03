@@ -100,7 +100,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	}
 	
 	/// Wraps the enable and disable SelectGraphicRendition codes around a string.
-	public func wrap(string: String) -> String {
+	public func wrap(_ string: String) -> String {
 		let (enable, disable) = self.code
 		return enable + string + disable
 	}
@@ -109,7 +109,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	// MARK: - Foreground/Background Helpers
 	//------------------------------------------------------------------------------
 	
-	private func filter(level level: Level, inverse: Bool = false) -> UnderlyingCollection {
+	private func filter(level: Level, inverse: Bool = false) -> UnderlyingCollection {
 		return self.filter {
 			let condition = (($0 as? ColorType)?.level == level) ?? false
 			return inverse ? !condition : condition
@@ -138,7 +138,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		}
 	}
 
-	private func levelTransform(level: Level, @noescape transform: ColorType -> ColorType) -> (
+	private func levelTransform(_ level: Level, @noescape transform: ColorType -> ColorType) -> (
 		transformed: Bool,
 		parameters: UnderlyingCollection
 	) {
@@ -220,7 +220,7 @@ extension Color.Wrap: RangeReplaceableCollectionType {
 		parameters.append(newElement)
 	}
 	
-	public mutating func append(style style: StyleParameter...) {
+	public mutating func append(style: StyleParameter...) {
 		for parameter in style {
 			parameters.append(parameter)
 		}
@@ -248,7 +248,7 @@ extension Color.Wrap: Equatable {
 		case Set
 	}
 	
-	private func setEqualilty(a: Color.Wrap, _ b: Color.Wrap) -> Bool {
+	private func setEqualilty(_ a: Color.Wrap, _ b: Color.Wrap) -> Bool {
 		
 		let x = Set( a.parameters.map { String($0.code.enable) } )
 		let y = Set( b.parameters.map { String($0.code.enable) } )
