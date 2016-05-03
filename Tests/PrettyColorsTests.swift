@@ -102,8 +102,8 @@ class PrettyColorsTests: XCTestCase {
 			[] + redItalic
 				.map {
 					switch $0 as? StyleParameter {
-						case .Some: /* replace value */ return StyleParameter.Bold
-						case .None: /* same value */ return $0
+						case .some: /* replace value */ return StyleParameter.Bold
+						case .none: /* same value */ return $0
 					}
 				}
 				== redBold
