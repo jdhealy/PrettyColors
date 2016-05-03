@@ -15,7 +15,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	// MARK: - Initializers
 	//------------------------------------------------------------------------------
 
-	public init<S: SequenceType where S.Generator.Element == Element>(parameters: S) {
+	public init<S: Sequence where S.Iterator.Element == Element>(parameters: S) {
 		self.parameters = UnderlyingCollection(parameters)
 	}
 	
@@ -92,7 +92,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 			ECMA48.controlSequenceIntroducer
 			+ ($0 as [UInt8])
 				.map(String.init)
-				.joinWithSeparator(";")
+				.joined(separator: ";")
 			+ "m"
 		}
 		
@@ -178,10 +178,10 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 // MARK: - Wrap: SequenceType
 //------------------------------------------------------------------------------
 
-extension Color.Wrap: SequenceType {
-	public typealias Generator = IndexingGenerator<Array<Element>>
-	public func generate() -> Generator {
-		return parameters.generate()
+extension Color.Wrap: Sequence {
+	public typealias Iterator = IndexingIterator<Array<Element>>
+	public func makeIterator() -> Iterator {
+		return parameters.makeIterator()
 	}
 }
 
@@ -189,12 +189,12 @@ extension Color.Wrap: SequenceType {
 // MARK: - Wrap: CollectionType
 //------------------------------------------------------------------------------
 
-extension Color.Wrap: CollectionType, MutableCollectionType {
+extension Color.Wrap: Collection, MutableCollection {
 	public typealias Index = UnderlyingCollection.Index
 	public var startIndex: Index { return parameters.startIndex }
 	public var endIndex: Index { return parameters.endIndex }
 	
-	public subscript(position:Index) -> Generator.Element {
+	public subscript(position:Index) -> Iterator.Element {
 		get { return parameters[position] }
 		set { parameters[position] = newValue }
 	}
@@ -204,11 +204,11 @@ extension Color.Wrap: CollectionType, MutableCollectionType {
 // MARK: - Wrap: RangeReplaceableCollectionType
 //------------------------------------------------------------------------------
 
-extension Color.Wrap: RangeReplaceableCollectionType {
-	public mutating func replaceRange<C: CollectionType where C.Generator.Element == Generator.Element>(
-		subRange: Range<Index>, with newElements: C
+extension Color.Wrap: RangeReplaceableCollection {
+	public mutating func replaceSubrange<C: Collection where C.Iterator.Element == Iterator.Element>(
+		_ bounds: Range<Index>, with newElements: C
 	) {
-		parameters.replaceRange(subRange, with: newElements)
+		parameters.replaceSubrange(bounds, with: newElements)
 	}
 
 	
@@ -226,8 +226,8 @@ extension Color.Wrap: RangeReplaceableCollectionType {
 		}
 	}
 	
-	public mutating func appendContentsOf<S: SequenceType where S.Generator.Element == Element>(sequence: S) {
-		parameters.appendContentsOf(sequence)
+	public mutating func append<S: Sequence where S.Iterator.Element == Element>(contentsOf sequence: S) {
+		parameters.append(contentsOf: sequence)
 	}
 }
 
