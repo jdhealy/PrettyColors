@@ -138,7 +138,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		}
 	}
 
-	private func levelTransform(_ level: Level, @noescape transform: ColorType -> ColorType) -> (
+	private func levelTransform(_ level: Level, transform: @noescape (ColorType) -> ColorType) -> (
 		transformed: Bool,
 		parameters: UnderlyingCollection
 	) {
@@ -157,14 +157,14 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	}
 	
 	/// Synchronously transform all ColorTypes with a `Level` of `Foreground`.
-	public mutating func foreground(@noescape transform: ColorType -> ColorType) -> Bool {
+	public mutating func foreground(transform: @noescape (ColorType) -> ColorType) -> Bool {
 		let transformation = levelTransform(.Foreground, transform: transform)
 		self.parameters = transformation.parameters
 		return transformation.transformed
 	}
 
 	/// Synchronously transform all ColorTypes with a `Level` of `Background`.
-	public mutating func background(@noescape transform: ColorType -> ColorType) -> Bool {
+	public mutating func background(transform: @noescape (ColorType) -> ColorType) -> Bool {
 		let transformation = levelTransform(.Background, transform: transform)
 		self.parameters = transformation.parameters
 		return transformation.transformed
