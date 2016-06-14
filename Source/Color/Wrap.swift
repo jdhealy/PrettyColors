@@ -194,6 +194,9 @@ extension Color.Wrap: Collection, MutableCollection {
 	public var startIndex: Index { return parameters.startIndex }
 	public var endIndex: Index { return parameters.endIndex }
 	
+	public func index(after i: Index) -> Index { return parameters.index(after: i) }
+	public func formIndex(after i: inout Index) { return parameters.formIndex(after: &i) }
+  
 	public subscript(position:Index) -> Iterator.Element {
 		get { return parameters[position] }
 		set { parameters[position] = newValue }
@@ -210,10 +213,9 @@ extension Color.Wrap: RangeReplaceableCollection {
 	) {
 		parameters.replaceSubrange(bounds, with: newElements)
 	}
-
 	
-	public mutating func reserveCapacity(n: Index.Distance) {
-		parameters.reserveCapacity(n)
+	public mutating func reserveCapacity(_ minimumCapacity: UnderlyingCollection.IndexDistance) {
+		parameters.reserveCapacity(minimumCapacity)
 	}
 
 	public mutating func append(newElement: Element) {
