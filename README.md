@@ -26,7 +26,7 @@ Color.Wrap(foreground: 114)
 Color.Wrap(foreground: 114, style: .Bold)
 ```
 
-**More examples can be found in [the tests](https://github.com/jdhealy/PrettyColors/blob/master/Tests/PrettyColorsTests.swift).**
+**More examples can be found in [the tests](./Tests/PrettyColorsTests.swift).**
 
 ### Installation
 #### [Carthage](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
@@ -55,4 +55,4 @@ Then run `pod install` with CocoaPods 0.36 or newer.
 - [`tehmaze/ansi`](https://github.com/tehmaze/ansi/)
 
 ## License
-PrettyColors is released under the [MIT license](http://opensource.org/licenses/MIT). See [LICENSE.md](https://github.com/jdhealy/PrettyColors/blob/master/LICENSE.md) for details.
+PrettyColors is released under the [MIT license](http://opensource.org/licenses/MIT). See [LICENSE.md](./LICENSE.md) for details.
