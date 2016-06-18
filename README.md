@@ -35,8 +35,8 @@ Add the following to your Cartfile:
 ```ogdl
 github "jdhealy/PrettyColors"
 ```
-#### [CocoaPods](http://cocoapods.org)
-Add the following to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
+#### [CocoaPods](https://cocoapods.org)
+Add the following to your [Podfile](https://guides.cocoapods.org/using/the-podfile.html):
 
 ```ruby
 pod 'PrettyColors', :git => 'https://github.com/jdhealy/PrettyColors'
