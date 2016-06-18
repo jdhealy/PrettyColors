@@ -26,7 +26,7 @@ Color.Wrap(foreground: 114)
 Color.Wrap(foreground: 114, style: .Bold)
 ```
 
-**More examples can be found in [the tests](./Tests/PrettyColorsTests.swift).**
+**More examples can be found in [the tests](./Tests/Unit/PrettyColorsTests.swift).**
 
 ### Installation
 #### [Carthage](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
