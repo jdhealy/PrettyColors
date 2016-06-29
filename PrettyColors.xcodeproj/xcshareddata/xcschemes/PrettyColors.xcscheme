@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "673900AA1A546F2C0066713B"
+               BlueprintIdentifier = "67B8DD611A5C86B400F4CE19"
                BuildableName = "PrettyColors.framework"
-               BlueprintName = "PrettyColors-Mac"
+               BlueprintName = "PrettyColors"
                ReferencedContainer = "container:PrettyColors.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,7 +28,7 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "673900B51A546F2D0066713B"
+               BlueprintIdentifier = "67B8DD6B1A5C86B500F4CE19"
                BuildableName = "PrettyColorsTests.xctest"
                BlueprintName = "PrettyColorsTests"
                ReferencedContainer = "container:PrettyColors.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "673900B51A546F2D0066713B"
+               BlueprintIdentifier = "67B8DD6B1A5C86B500F4CE19"
                BuildableName = "PrettyColorsTests.xctest"
                BlueprintName = "PrettyColorsTests"
                ReferencedContainer = "container:PrettyColors.xcodeproj">
@@ -56,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "673900AA1A546F2C0066713B"
+            BlueprintIdentifier = "67B8DD611A5C86B400F4CE19"
             BuildableName = "PrettyColors.framework"
-            BlueprintName = "PrettyColors-Mac"
+            BlueprintName = "PrettyColors"
             ReferencedContainer = "container:PrettyColors.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,9 +78,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "673900AA1A546F2C0066713B"
+            BlueprintIdentifier = "67B8DD611A5C86B400F4CE19"
             BuildableName = "PrettyColors.framework"
-            BlueprintName = "PrettyColors-Mac"
+            BlueprintName = "PrettyColors"
             ReferencedContainer = "container:PrettyColors.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -96,9 +96,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "673900AA1A546F2C0066713B"
+            BlueprintIdentifier = "67B8DD611A5C86B400F4CE19"
             BuildableName = "PrettyColors.framework"
-            BlueprintName = "PrettyColors-Mac"
+            BlueprintName = "PrettyColors"
             ReferencedContainer = "container:PrettyColors.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
