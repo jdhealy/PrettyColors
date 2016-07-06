@@ -1,0 +1,3 @@
+[submodule "Supporting Files/Configuration Support"]
+	path = Supporting Files/Configuration Support
+	url = https://github.com/jdhealy/FABConfig.git
