@@ -1,0 +1,7 @@
+#include "../../Supporting Files/Configuration Support/Targets/XCTest.xcconfig"
+
+// As of Xcode 8S162m, the Swift Migrator doesn’t respect any `SWIFT_VERSION` from `xcconfig` files. So, until said improvement, manually duplicate the value below in ../../PrettyColors.xcodeproj/project.pbxproj
+// SWIFT_VERSION = "2.3"
+SWIFT_OPTIMIZATION_LEVEL = -Owholemodule
+
+COMBINE_HIDPI_IMAGES = YES
