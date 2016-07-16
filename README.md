@@ -55,4 +55,4 @@ Then run `pod install` with CocoaPods 0.36 or newer.
 - [`tehmaze/ansi`](https://github.com/tehmaze/ansi/)
 
 ## License
-PrettyColors is released under the [MIT license](http://opensource.org/licenses/MIT). See [LICENSE.md](./LICENSE.md) for details.
+PrettyColors is released under the [MIT license](https://opensource.org/licenses/MIT). See [LICENSE.md](./LICENSE.md) for details.
