@@ -24,6 +24,14 @@ matrix:
         - XCODE_SDK=watchsimulator
           XCODE_ACTION=build
           XCODE_DESTINATION="name=Apple Watch - 38mm"
+    - osx_image: xcode7.3
+      env:
+        - JOB=CARTHAGE
+      script:
+        - brew update
+        - brew outdated carthage || brew upgrade carthage
+        - carthage build --no-skip-current
+        - for platform in Mac iOS tvOS watchOS; do test -d Carthage/Build/$platform/PrettyColors.framework || exit 1; done
     - osx_image: xcode8
       env:
         - XCODE_SDK=macosx
@@ -44,6 +52,14 @@ matrix:
         - XCODE_SDK=watchsimulator
           XCODE_ACTION=build
           XCODE_DESTINATION="name=Apple Watch - 38mm"
+    - osx_image: xcode8
+      env:
+        - JOB=CARTHAGE
+      script:
+        - brew update
+        - brew outdated carthage || brew upgrade carthage
+        - carthage build --no-skip-current
+        - for platform in Mac iOS tvOS watchOS; do test -d Carthage/Build/$platform/PrettyColors.framework || exit 1; done
 git:
   submodules: false
 before_install:
