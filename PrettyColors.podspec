@@ -14,4 +14,6 @@ Pod::Spec.new do |spec|
   spec.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
   spec.ios.deployment_target = '8.0'
   spec.osx.deployment_target = '10.9'
+  spec.watchos.deployment_target = '2.0'
+  spec.tvos.deployment_target = '9.0'
 end
