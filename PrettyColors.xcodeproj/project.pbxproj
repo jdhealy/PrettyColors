@@ -186,6 +186,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67B8DD781A5C86B500F4CE19 /* Build configuration list for PBXNativeTarget "PrettyColorsTests" */;
 			buildPhases = (
+				67241DD01D41596400D0D8C4 /* Error on watchOS */,
 				67B8DD681A5C86B500F4CE19 /* Sources */,
 				67B8DD691A5C86B500F4CE19 /* Frameworks */,
 				6799D19F1A5D9FCC00B8840D /* Copy Frameworks */,
@@ -247,6 +248,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		67241DD01D41596400D0D8C4 /* Error on watchOS */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Error on watchOS";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "if [[ ${PLATFORM_NAME} == 'watchos' ]] || [[ ${CORRESPONDING_DEVICE_PLATFORM_NAME} == 'watchos' ]] {\n    echo 'error: ‘watchOS’ platforms do not contain ‘XCTest’.'\n    exit 65\n}";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		67B8DD5D1A5C86B400F4CE19 /* Sources */ = {
