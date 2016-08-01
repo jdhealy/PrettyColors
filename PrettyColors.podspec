@@ -11,6 +11,7 @@ Pod::Spec.new do |spec|
   spec.source = { :git => 'https://github.com/jdhealy/PrettyColors.git', :tag => "v#{spec.version}" }
   spec.source_files = 'Source/**/*.{h,swift}'
   spec.requires_arc = true
+  spec.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
   spec.ios.deployment_target = '8.0'
   spec.osx.deployment_target = '10.9'
 end
