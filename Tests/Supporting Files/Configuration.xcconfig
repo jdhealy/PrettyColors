@@ -5,3 +5,24 @@
 SWIFT_OPTIMIZATION_LEVEL = -Owholemodule
 
 COMBINE_HIDPI_IMAGES = YES
+
+//// On-Device Hosted tests
+
+// To be run on a device, the requirement of having “logic tests” hosted by an app sub-requires code signing `xctest` bundles.
+CODE_SIGNING_REQUIRED[sdk=iphoneos*] = YES
+CODE_SIGNING_REQUIRED[sdk=appletvos*] = YES
+CODE_SIGN_IDENTITY[sdk=iphoneos*] = iPhone Developer
+CODE_SIGN_IDENTITY[sdk=appletvos*] = iPhone Developer
+
+//// watchOS Exclusions
+// As of Xcode 8S162m, the XCTest framework is not published for watchOS or its simulator. <https://openradar.appspot.com/21760513> provides (some) additional information.
+
+// As of Xcode 8S162m, when the below line is uncommented, building for testing for a watch* platform will try to build tests for the macosx platform. Instead, rely on the “Error on watchOS” build phase script.
+// SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator
+// ???: Additionally, it would be preferable to blacklist unsupported platforms — ones without xctest — rather than whitelist supported ones.
+
+// As of Xcode 8S162m, this doesn’t seem to have any effect. Maybe in the future it will provide the desired exclusionary behavior.
+VALID_ARCHS[sdk=watch*] = // unset
+
+// Leaving this unset allows the build to proceed to the “Error on watchOS” build phase script, which emits the more relevant error.
+CODE_SIGN_IDENTITY[sdk=watch*] = // unset
