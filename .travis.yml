@@ -4,6 +4,10 @@ env:
 os: osx
 language: c
 matrix:
+  exclude:
+    # Note: Workaround travis-ci/travis-ci#4681
+    # Exclude default job which lacks our included environment variables.
+    - os: osx
   include:
     - osx_image: xcode7.3
       env:
