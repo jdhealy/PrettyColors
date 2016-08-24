@@ -145,10 +145,8 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 		return self.parameters.reduce(
 			(transformed: false, parameters: [] as UnderlyingCollection)
 		) { previous, value in
-			if
-				let color = value as? ColorType where color.level == level,
-				case let transformation = [ transform(color) ] as UnderlyingCollection
-			{
+			if let color = value as? ColorType, color.level == level {
+				let transformation = [ transform(color) ] as UnderlyingCollection
 				return (transformed: true, parameters: previous.parameters + transformation)
 			} else {
 				return (previous.transformed, previous.parameters + [value])
