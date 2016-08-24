@@ -216,7 +216,7 @@ extension Color.Wrap: RangeReplaceableCollection {
 		parameters.reserveCapacity(minimumCapacity)
 	}
 
-	public mutating func append(newElement: Element) {
+	public mutating func append(_ newElement: Element) {
 		parameters.append(newElement)
 	}
 	
