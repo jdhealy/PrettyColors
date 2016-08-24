@@ -251,12 +251,10 @@ extension Color.Wrap: Equatable {
 	}
 	
 	private func setEqualilty(_ a: Color.Wrap, _ b: Color.Wrap) -> Bool {
-		
-		let x = Set( a.parameters.map { String($0.code.enable) } )
-		let y = Set( b.parameters.map { String($0.code.enable) } )
+		let x = Set( a.parameters.map { String(describing: $0.code.enable) } )
+		let y = Set( b.parameters.map { String(describing: $0.code.enable) } )
 		
 		return x == y
-		
 	}
 	
 	public func isEqual(to other: Color.Wrap, equality: Color.Wrap.EqualityType = .Array) -> Bool {
