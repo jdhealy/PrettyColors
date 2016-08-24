@@ -15,7 +15,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	// MARK: - Initializers
 	//------------------------------------------------------------------------------
 
-	public init<S: Sequence where S.Iterator.Element == Element>(parameters: S) {
+	public init<S: Sequence>(parameters: S) where S.Iterator.Element == Element {
 		self.parameters = UnderlyingCollection(parameters)
 	}
 	
@@ -208,9 +208,9 @@ extension Color.Wrap: Collection, MutableCollection {
 //------------------------------------------------------------------------------
 
 extension Color.Wrap: RangeReplaceableCollection {
-	public mutating func replaceSubrange<C: Collection where C.Iterator.Element == Iterator.Element>(
+	public mutating func replaceSubrange<C: Collection>(
 		_ bounds: Range<Index>, with newElements: C
-	) {
+	) where C.Iterator.Element == Iterator.Element {
 		parameters.replaceSubrange(bounds, with: newElements)
 	}
 	
@@ -228,7 +228,7 @@ extension Color.Wrap: RangeReplaceableCollection {
 		}
 	}
 	
-	public mutating func append<S: Sequence where S.Iterator.Element == Element>(contentsOf sequence: S) {
+	public mutating func append<S: Sequence>(contentsOf sequence: S) where S.Iterator.Element == Element {
 		parameters.append(contentsOf: sequence)
 	}
 }
