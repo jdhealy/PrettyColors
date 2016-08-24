@@ -14,16 +14,16 @@ class PrettyColorsTests: XCTestCase {
 	}
 	
 	func test_basics() {
-		let redText: String = Color.Wrap(foreground: .Red).wrap("A red piece of text.")
+		let redText: String = Color.Wrap(foreground: .red).wrap("A red piece of text.")
 		print(redText)
 		
 		_ = ((
-			Color.Wrap(foreground: .Yellow, style: .Bold),
-			Color.Wrap(foreground: .Green, background: .Black, style: .Bold, .Underlined),
+			Color.Wrap(foreground: .yellow, style: .bold),
+			Color.Wrap(foreground: .green, background: .black, style: .bold, .underlined),
 			
 			// 8-bit (256) color support
 			Color.Wrap(foreground: 114),
-			Color.Wrap(foreground: 114, style: .Bold)
+			Color.Wrap(foreground: 114, style: .bold)
 		))
 	}
 
@@ -32,17 +32,17 @@ class PrettyColorsTests: XCTestCase {
 			As of `swiftlang-700.0.57.3`, the following statement errors:
 			«Ambiguous use of 'init(foreground:background:style:)'»
 		*/
-		// Color.Wrap(style: .Bold)
+		// Color.Wrap(style: .bold)
 		
 		_ = ((
 			// Workarounds:
-			Color.Wrap(foreground: nil as UInt8?, style: .Bold),
-			Color.Wrap(foreground: nil as Color.Named.Color?, style: .Bold),
-			[StyleParameter.Bold] as Color.Wrap,
-			Color.Wrap(styles: .Bold),
+			Color.Wrap(foreground: nil as UInt8?, style: .bold),
+			Color.Wrap(foreground: nil as Color.Named.Color?, style: .bold),
+			[StyleParameter.bold] as Color.Wrap,
+			Color.Wrap(styles: .bold),
 			
 			// Multiple
-			Color.Wrap(styles: .Bold, .Blink)
+			Color.Wrap(styles: .bold, .blink)
 		))
 	}
 	
@@ -52,9 +52,9 @@ class PrettyColorsTests: XCTestCase {
 		/*
 		Color.Wrap(
 			parameters: [
-				Color.Named(foreground: .Green),
+				Color.Named(foreground: .green),
 				Color.EightBit(foreground: 114),
-				StyleParameter.Bold
+				StyleParameter.bold
 			]
 		)
 		*/
@@ -63,37 +63,37 @@ class PrettyColorsTests: XCTestCase {
 			// Workarounds:
 			Color.Wrap(
 				parameters: [
-					Color.Named(foreground: .Green),
+					Color.Named(foreground: .green),
 					Color.EightBit(foreground: 114),
-					StyleParameter.Bold
+					StyleParameter.bold
 				] as [Color.Wrap.Element]
 			),
 
 			Color.Wrap(
 				parameters: [
-					Color.Named(foreground: .Green),
+					Color.Named(foreground: .green),
 					Color.EightBit(foreground: 114),
-					StyleParameter.Bold
+					StyleParameter.bold
 				] as [Parameter]
 			),
 
 			[
-				Color.Named(foreground: .Green),
+				Color.Named(foreground: .green),
 				Color.EightBit(foreground: 114),
-				StyleParameter.Bold
+				StyleParameter.bold
 			] as Color.Wrap
 		))
 	}
 
 	func testImmutableFilterOrMap() {
-		let redBold = Color.Wrap(foreground: .Red, style: .Bold)
-		let redItalic = Color.Wrap(foreground: .Red, style: .Italic)
+		let redBold = Color.Wrap(foreground: .red, style: .bold)
+		let redItalic = Color.Wrap(foreground: .red, style: .italic)
 		
 		// Filter
 		XCTAssert(
 			redBold == redItalic
-				.filter { $0 != StyleParameter.Italic }
-				+ [ StyleParameter.Bold ]
+				.filter { $0 != StyleParameter.italic }
+				+ [ StyleParameter.bold ]
 		)
 		
 		// Map
@@ -102,7 +102,7 @@ class PrettyColorsTests: XCTestCase {
 			[] + redItalic
 				.map {
 					switch $0 as? StyleParameter {
-						case .some: /* replace value */ return StyleParameter.Bold
+						case .some: /* replace value */ return StyleParameter.bold
 						case .none: /* same value */ return $0
 					}
 				}
@@ -124,7 +124,7 @@ class PrettyColorsTests: XCTestCase {
 	func testMulti() {
 		let multi = [
 			Color.EightBit(foreground: 227),
-			Color.Named(foreground: .Green, brightness: .NonBright)
+			Color.Named(foreground: .green, brightness: .nonBright)
 		] as Color.Wrap
 		XCTAssert(
 			multi.code.enable ==
@@ -137,16 +137,16 @@ class PrettyColorsTests: XCTestCase {
 	}
 
 	func testLetWorkflow() {
-		let redOnBlack = Color.Wrap(foreground: .Red, background: .Black)
-		let boldRedOnBlack: Color.Wrap = redOnBlack + [ StyleParameter.Bold ] as Color.Wrap
+		let redOnBlack = Color.Wrap(foreground: .red, background: .black)
+		let boldRedOnBlack: Color.Wrap = redOnBlack + [ StyleParameter.bold ] as Color.Wrap
 		
 		XCTAssert(
-			boldRedOnBlack == Color.Wrap(foreground: .Red, background: .Black, style: .Bold)
+			boldRedOnBlack == Color.Wrap(foreground: .red, background: .black, style: .bold)
 		)
 		XCTAssert(
 			[
 				boldRedOnBlack,
-				Color.Wrap(foreground: .Red, background: .Black, style: .Bold)
+				Color.Wrap(foreground: .red, background: .black, style: .bold)
 			].reduce(true) {
 				(previous, value) in
 				return previous && value.parameters.reduce(true) {
@@ -156,9 +156,9 @@ class PrettyColorsTests: XCTestCase {
 					// error for the returned expression… 😕
 					_ = value
 					return previous && (
-						value == Color.Named(foreground: .Red) as Parameter ||
-						value == Color.Named(background: .Black) as Parameter ||
-						value == StyleParameter.Bold
+						value == Color.Named(foreground: .red) as Parameter ||
+						value == Color.Named(background: .black) as Parameter ||
+						value == StyleParameter.bold
 					)
 				}
 			} == true
@@ -167,57 +167,57 @@ class PrettyColorsTests: XCTestCase {
 
 	
 	func testAppendStyleParameter() {
-		let red = Color.Wrap(foreground: .Red)
+		let red = Color.Wrap(foreground: .red)
 		
 		let _ = { (wrap: Color.Wrap) -> Void in
 			var formerlyRed = wrap
-			formerlyRed.append(StyleParameter.Bold)
+			formerlyRed.append(StyleParameter.bold)
 			XCTAssert(
-				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold)
+				formerlyRed == Color.Wrap(foreground: .red, style: .bold)
 			)
 		}(red)
 		
 		let _ = { (wrap: Color.Wrap) -> Void in
 			var formerlyRed = wrap
-			formerlyRed.append(style: .Bold)
+			formerlyRed.append(style: .bold)
 			XCTAssert(
-				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold)
+				formerlyRed == Color.Wrap(foreground: .red, style: .bold)
 			)
 		}(red)
 		
 		XCTAssert(
-			red + Color.Wrap(styles: .Bold) == Color.Wrap(foreground: .Red, style: .Bold)
+			red + Color.Wrap(styles: .bold) == Color.Wrap(foreground: .red, style: .bold)
 		)
 		
 		// Multiple
 		let _ = { (wrap: Color.Wrap) -> Void in
 			var formerlyRed = wrap
-			formerlyRed.append(StyleParameter.Bold)
-			formerlyRed.append(StyleParameter.Italic)
+			formerlyRed.append(StyleParameter.bold)
+			formerlyRed.append(StyleParameter.italic)
 			XCTAssert(
-				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
+				formerlyRed == Color.Wrap(foreground: .red, style: .bold, .italic)
 			)
 		}(red)
 		
 		let _ = { (wrap: Color.Wrap) -> Void in
 			var formerlyRed = wrap
-			formerlyRed.append(style: .Bold, .Italic)
+			formerlyRed.append(style: .bold, .italic)
 			XCTAssert(
-				formerlyRed == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
+				formerlyRed == Color.Wrap(foreground: .red, style: .bold, .italic)
 			)
 		}(red)
 
 		XCTAssert(
-			red + Color.Wrap(styles: .Bold, .Italic) == Color.Wrap(foreground: .Red, style: .Bold, .Italic)
+			red + Color.Wrap(styles: .bold, .italic) == Color.Wrap(foreground: .red, style: .bold, .italic)
 		)
 	}
 
 	func testMutableAppend() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
-		let redBlackBackground = Color.Wrap(foreground: .Red, background: .Black)
+		var formerlyRed = Color.Wrap(foreground: .red)
+		let redBlackBackground = Color.Wrap(foreground: .red, background: .black)
 		
 		
-		formerlyRed.append( Color.Named(background: .Black) )
+		formerlyRed.append( Color.Named(background: .black) )
 		
 		XCTAssert(
 			formerlyRed == redBlackBackground
@@ -229,7 +229,7 @@ class PrettyColorsTests: XCTestCase {
 	//------------------------------------------------------------------------------
 	
 	func testSetForeground() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
+		var formerlyRed = Color.Wrap(foreground: .red)
 		formerlyRed.foreground = Color.EightBit(foreground: 227) // A nice yellow
 		XCTAssert(
 			formerlyRed == Color.Wrap(foreground: 227)
@@ -237,7 +237,7 @@ class PrettyColorsTests: XCTestCase {
 	}
 		
 	func testSetForegroundToNil() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
+		var formerlyRed = Color.Wrap(foreground: .red)
 		formerlyRed.foreground = nil
 		
 		XCTAssert(
@@ -249,15 +249,15 @@ class PrettyColorsTests: XCTestCase {
 	}
 
 	func testSetForegroundToParameter() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
-		formerlyRed.foreground = StyleParameter.Bold
+		var formerlyRed = Color.Wrap(foreground: .red)
+		formerlyRed.foreground = StyleParameter.bold
 		
-		XCTAssert( formerlyRed == [StyleParameter.Bold] as Color.Wrap )
+		XCTAssert( formerlyRed == [StyleParameter.bold] as Color.Wrap )
 
 	}
 	
 	func testTransformForeground() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
+		var formerlyRed = Color.Wrap(foreground: .red)
 		_ = formerlyRed.foreground { _ in
 			return Color.EightBit(foreground: 227) // A nice yellow
 		}
@@ -275,19 +275,19 @@ class PrettyColorsTests: XCTestCase {
 	}
 	
 	func testTransformForegroundWithVar() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
+		var formerlyRed = Color.Wrap(foreground: .red)
 		_ = formerlyRed.foreground { color in
 			if let namedColor = color as? Color.Named {
 				var soonYellow = namedColor
-				soonYellow.color = .Yellow
+				soonYellow.color = .yellow
 				return soonYellow
 			} else { return color }
 		}
-		XCTAssert( formerlyRed == Color.Wrap(foreground: .Yellow) )
+		XCTAssert( formerlyRed == Color.Wrap(foreground: .yellow) )
 	}
 
 	func testTransformForegroundToBright() {
-		var formerlyRed = Color.Wrap(foreground: .Red)
+		var formerlyRed = Color.Wrap(foreground: .red)
 		
 		_ = formerlyRed.foreground {
 			var clone = $0 as! Color.Named
@@ -296,7 +296,7 @@ class PrettyColorsTests: XCTestCase {
 		}
 		
 		let brightRed = [
-			Color.Named(foreground: .Red, brightness: .Bright)
+			Color.Named(foreground: .red, brightness: .bright)
 		] as Color.Wrap
 		
 		XCTAssert( formerlyRed == brightRed )
@@ -304,13 +304,13 @@ class PrettyColorsTests: XCTestCase {
 	
 	func testComputedVariableForegroundEquality() {
 		XCTAssert(
-			Color.Named(foreground: .Red) == Color.Wrap(foreground: .Red).foreground! as! Color.Named
+			Color.Named(foreground: .red) == Color.Wrap(foreground: .red).foreground! as! Color.Named
 		)
 	}
 
 	func testEightBitForegroundBackgroundDifference() {
-		let foreground = Color.Named(foreground: .Green).code.enable
-		let background = Color.Named(background: .Green).code.enable
+		let foreground = Color.Named(foreground: .green).code.enable
+		let background = Color.Named(background: .green).code.enable
 		
 		let difference = zip(foreground, background)
 			.reduce(0 as UInt8) { sum, values in
@@ -322,8 +322,8 @@ class PrettyColorsTests: XCTestCase {
 	}
 
 	func testNamedForegroundBackgroundDifference() {
-		let foreground = Color.Named(foreground: .Green).code.enable
-		let background = Color.Named(background: .Green).code.enable
+		let foreground = Color.Named(foreground: .green).code.enable
+		let background = Color.Named(background: .green).code.enable
 		
 		let difference = zip(foreground, background)
 			.reduce(0 as UInt8) { sum, values in
@@ -335,8 +335,8 @@ class PrettyColorsTests: XCTestCase {
 	}
 	
 	func testNamedBrightnessDifference() {
-		let non·bright = Color.Named(foreground: .Green).code.enable
-		let bright = Color.Named(foreground: .Green, brightness: .Bright).code.enable
+		let non·bright = Color.Named(foreground: .green).code.enable
+		let bright = Color.Named(foreground: .green, brightness: .bright).code.enable
 		
 		let difference = zip(non·bright, bright)
 			.reduce(0 as UInt8) { sum, values in
@@ -354,14 +354,14 @@ class PrettyColorsTests: XCTestCase {
 	func testZapAllStyleParameters() {
 	
 		for wrap in [
-			Color.Wrap(foreground: .Red),
+			Color.Wrap(foreground: .red),
 			Color.Wrap(foreground: 114)
 		] {
-			for (number, style·wrap) in (
+			for (number, style·wrap): (UInt8, Color.Wrap) in (
 				(1 as UInt8 ... 55).flatMap /* more accurately, concatenate optionals */ {
 					guard let style = StyleParameter(rawValue: $0) else { return nil }
 					return ($0 as UInt8, [style] as Color.Wrap)
-				} /* type-inference fails without */ as [(UInt8, Color.Wrap)]
+				}
 			) {
 				let formatted·number = NSString(format: "%02d", number) as String
 
@@ -369,9 +369,9 @@ class PrettyColorsTests: XCTestCase {
 					(wrap, "normal"),
 					// TODO: Investigate why `as (Color.Wrap, String)` before above comma 
 					// doesn't provide enough type info for the remaining lines in the array.
-					(wrap + [ StyleParameter.Bold ], "bold"),
-					(wrap + [ StyleParameter.Italic ], "italic"),
-					(wrap + [ StyleParameter.Underlined ], "underlined")
+					(wrap + [ StyleParameter.bold ], "bold"),
+					(wrap + [ StyleParameter.italic ], "italic"),
+					(wrap + [ StyleParameter.underlined ], "underlined")
 				] /* type-inference fails without */ as [(Color.Wrap, String)] {
 					let styled·output = (appended·wrap + style·wrap).wrap("__|øat·•ªº^∆©|__")
 					print( "• \(styled·output) \(formatted·number) + \(suffix)" )

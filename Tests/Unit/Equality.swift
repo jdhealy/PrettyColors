@@ -17,20 +17,20 @@ class EqualityTests: XCTestCase {
 		let one = [
 			Color.EightBit(foreground: 100),
 			Color.EightBit(background: 200),
-			(StyleParameter.Encircled)
+			(StyleParameter.encircled)
 		] as Color.Wrap
 		
 		let two = [
 			Color.EightBit(background: 200),
-			StyleParameter.Encircled,
+			StyleParameter.encircled,
 			Color.EightBit(foreground: 100)
 		] as Color.Wrap
 		
 		XCTAssert(
-			one.isEqual(to: two, equality: Color.Wrap.EqualityType.Set)
+			one.isEqual(to: two, equality: Color.Wrap.EqualityType.set)
 		)
 		XCTAssert(
-			!one.isEqual(to: two, equality: Color.Wrap.EqualityType.Array)
+			!one.isEqual(to: two, equality: Color.Wrap.EqualityType.array)
 		)
 		
 		// Defaults to Array Equality
@@ -44,14 +44,14 @@ class EqualityTests: XCTestCase {
 	
 	func testB() {
 		let one = [
-			Color.Named(foreground: .Green),
+			Color.Named(foreground: .green),
 			Color.EightBit(background: 200),
-			StyleParameter.Encircled
+			StyleParameter.encircled
 		] as Color.Wrap
 		
 		let two = [
 			Color.EightBit(background: 200),
-			StyleParameter.Encircled,
+			StyleParameter.encircled,
 			Color.EightBit(foreground: 100)
 		] as Color.Wrap
 		
@@ -60,14 +60,14 @@ class EqualityTests: XCTestCase {
 	
 	func testC() {
 		let one = [
-			Color.Named(foreground: .Green),
+			Color.Named(foreground: .green),
 			Color.EightBit(background: 200),
-			StyleParameter.Encircled
+			StyleParameter.encircled
 		] as Color.Wrap
 		
 		let two = [
 			Color.EightBit(background: 200),
-			StyleParameter.CrossedOut,
+			StyleParameter.crossedOut,
 			Color.EightBit(foreground: 100)
 		] as Color.Wrap
 		
@@ -75,11 +75,11 @@ class EqualityTests: XCTestCase {
 	}
 
 	func testD() {
-		let one = Color.Wrap(foreground: .Green)
+		let one = Color.Wrap(foreground: .green)
 		
 		let two = [
 			Color.EightBit(background: 200),
-			StyleParameter.CrossedOut,
+			StyleParameter.crossedOut,
 			Color.EightBit(foreground: 100)
 		] as Color.Wrap
 		
@@ -87,8 +87,8 @@ class EqualityTests: XCTestCase {
 	}
 	
 	func testE() {
-		let one: Parameter = Color.Named(foreground: .Yellow)
-		let two: Parameter = Color.Named(background: .Yellow)
+		let one: Parameter = Color.Named(foreground: .yellow)
+		let two: Parameter = Color.Named(background: .yellow)
 		// TODO: DOCUMENT: Parameters don't conform to Equatable
 		XCTAssert(!(one == two))
 		XCTAssert(one != two)

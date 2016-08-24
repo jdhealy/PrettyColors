@@ -118,23 +118,23 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	
 	public var foreground: Parameter? {
 		get {
-			return self.filter(level: .Foreground).first
+			return self.filter(level: .foreground).first
 		}
 		mutating set(newForeground) {
 			self.parameters =
 				[newForeground].flatMap { $0 } + // Empty array or array containing new foreground
-				self.filter(level: .Foreground, inverse: true) // All non-foreground parameters
+				self.filter(level: .foreground, inverse: true) // All non-foreground parameters
 		}
 	}
 	
 	public var background: Parameter? {
 		get {
-			return self.filter(level: .Background).first
+			return self.filter(level: .background).first
 		}
 		mutating set(newBackground) {
 			self.parameters =
 				[newBackground].flatMap { $0 } + // Empty array or array containing new background
-				self.filter(level: .Background, inverse: true) // All non-background parameters
+				self.filter(level: .background, inverse: true) // All non-background parameters
 		}
 	}
 
@@ -156,14 +156,14 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	
 	/// Synchronously transform all ColorTypes with a `Level` of `Foreground`.
 	public mutating func foreground(transform: (ColorType) -> ColorType) -> Bool {
-		let transformation = levelTransform(.Foreground, transform: transform)
+		let transformation = levelTransform(.foreground, transform: transform)
 		self.parameters = transformation.parameters
 		return transformation.transformed
 	}
 
 	/// Synchronously transform all ColorTypes with a `Level` of `Background`.
 	public mutating func background(transform: (ColorType) -> ColorType) -> Bool {
-		let transformation = levelTransform(.Background, transform: transform)
+		let transformation = levelTransform(.background, transform: transform)
 		self.parameters = transformation.parameters
 		return transformation.transformed
 	}
@@ -244,8 +244,8 @@ extension Color.Wrap: ExpressibleByArrayLiteral {}
 extension Color.Wrap: Equatable {
 	
 	public enum EqualityType {
-		case Array
-		case Set
+		case array
+		case set
 	}
 	
 	private func setEqualilty(_ a: Color.Wrap, _ b: Color.Wrap) -> Bool {
@@ -255,13 +255,13 @@ extension Color.Wrap: Equatable {
 		return x == y
 	}
 	
-	public func isEqual(to other: Color.Wrap, equality: Color.Wrap.EqualityType = .Array) -> Bool {
+	public func isEqual(to other: Color.Wrap, equality: Color.Wrap.EqualityType = .array) -> Bool {
 		switch equality {
-		case .Array:
+		case .array:
 			return
 				self.parameters.count == other.parameters.count &&
 				self.code.enable == other.code.enable
-		case .Set:
+		case .set:
 			return setEqualilty(self, other)
 		}
 	}
@@ -269,5 +269,5 @@ extension Color.Wrap: Equatable {
 }
 
 public func == (a: Color.Wrap, b: Color.Wrap) -> Bool {
-	return a.isEqual(to: b, equality: .Array)
+	return a.isEqual(to: b, equality: .array)
 }
