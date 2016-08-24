@@ -237,7 +237,7 @@ extension Color.Wrap: RangeReplaceableCollection {
 // MARK: - Wrap: ArrayLiteralConvertible
 //------------------------------------------------------------------------------
 
-extension Color.Wrap: ArrayLiteralConvertible {}
+extension Color.Wrap: ExpressibleByArrayLiteral {}
 
 //------------------------------------------------------------------------------
 // MARK: - Wrap: Equatable
