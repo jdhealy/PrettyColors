@@ -111,7 +111,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 	
 	private func filter(level: Level, inverse: Bool = false) -> UnderlyingCollection {
 		return self.filter {
-			let condition = (($0 as? ColorType)?.level == level) ?? false
+			let condition = ($0 as? ColorType)?.level == .some(level)
 			return inverse ? !condition : condition
 		}
 	}
