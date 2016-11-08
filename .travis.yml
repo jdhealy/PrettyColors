@@ -37,6 +37,12 @@ matrix:
         - brew outdated carthage || brew upgrade carthage
         - carthage build --no-skip-current
         - for platform in Mac iOS tvOS watchOS; do test -d Carthage/Build/${platform}/PrettyColors.framework || exit 1; done
+    - osx_image: xcode8
+      env:
+        - JOB=SWIFT_PM
+      script:
+        - swift build --verbose
+        - swift test
 git:
   submodules: false
 before_install:
