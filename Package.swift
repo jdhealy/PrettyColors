@@ -1,7 +1,13 @@
 import PackageDescription
 
-let package = Package(
+var package = Package(
 	name: "PrettyColors",
-	exclude: ["Supporting Files", "Tests/Supporting Files"],
-	targets: []
+	exclude: ["Supporting Files", "Tests/Supporting Files"]
 )
+
+package.targets += [
+	Target(
+		name: "UnitTests",
+		dependencies: ["PrettyColors"]
+	)
+]

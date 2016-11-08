@@ -50,10 +50,10 @@
 		673900AF1A546F2D0066713B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		673900B01A546F2D0066713B /* PrettyColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrettyColors.h; sourceTree = "<group>"; };
 		673900BC1A546F2D0066713B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		673900BD1A546F2D0066713B /* PrettyColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrettyColorsTests.swift; path = Unit/PrettyColorsTests.swift; sourceTree = "<group>"; };
+		673900BD1A546F2D0066713B /* PrettyColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrettyColorsTests.swift; path = UnitTests/PrettyColorsTests.swift; sourceTree = "<group>"; };
 		673900C71A546F530066713B /* StyleParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleParameter.swift; sourceTree = "<group>"; };
 		673900C91A546F880066713B /* ECMA 48.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ECMA 48.swift"; sourceTree = "<group>"; };
-		67843C211A6102200061C1D3 /* Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Equality.swift; path = Unit/Equality.swift; sourceTree = "<group>"; };
+		67843C211A6102200061C1D3 /* Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Equality.swift; path = UnitTests/Equality.swift; sourceTree = "<group>"; };
 		67A7B39A1D1048DB00280ABD /* Color · EightBit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color · EightBit.swift"; sourceTree = "<group>"; };
 		67A7B39B1D1048DB00280ABD /* Color · Named.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color · Named.swift"; sourceTree = "<group>"; };
 		67A7B39C1D1048DB00280ABD /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
