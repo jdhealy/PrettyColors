@@ -121,17 +121,17 @@ class PrettyColorsTests: XCTestCase {
 		)
 	}
 	
-	func testMulti() {
-		let multi = [
+	func testMultipleColorsInSingleWrap() {
+		let multipleColorsInSingleWrap = [
 			Color.EightBit(foreground: 227),
 			Color.Named(foreground: .green, brightness: .nonBright)
 		] as Color.Wrap
 		XCTAssert(
-			multi.code.enable ==
+			multipleColorsInSingleWrap.code.enable ==
 			ECMA48.controlSequenceIntroducer + "38;5;227" + ";" + "32" + "m"
 		)
 		XCTAssert(
-			multi.code.disable ==
+			multipleColorsInSingleWrap.code.disable ==
 			ECMA48.controlSequenceIntroducer + "0" + "m"
 		)
 	}
