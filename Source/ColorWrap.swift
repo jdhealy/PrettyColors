@@ -178,6 +178,8 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 
 extension Color.Wrap: Sequence {
 	
+	public typealias SubSequence = UnderlyingCollection.SubSequence
+
 	public typealias Iterator = IndexingIterator<Array<Element>>
 	public func makeIterator() -> Iterator {
 		return parameters.makeIterator()
@@ -200,6 +202,11 @@ extension Color.Wrap: Collection, MutableCollection {
 	public subscript(position: Index) -> Iterator.Element {
 		get { return parameters[position] }
 		set { parameters[position] = newValue }
+	}
+	
+	public subscript(bounds: Range<Index>) -> SubSequence {
+		get { return parameters[bounds] }
+		set { parameters[bounds] = newValue }
 	}
 }
 
