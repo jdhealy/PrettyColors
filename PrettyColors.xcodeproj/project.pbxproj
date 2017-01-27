@@ -15,7 +15,6 @@
 		67B8DD6D1A5C86B500F4CE19 /* PrettyColors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B8DD621A5C86B400F4CE19 /* PrettyColors.framework */; };
 		67B8DD7B1A5C86D700F4CE19 /* ECMA 48.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900C91A546F880066713B /* ECMA 48.swift */; };
 		67B8DD7C1A5C86D700F4CE19 /* StyleParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900C71A546F530066713B /* StyleParameter.swift */; };
-		67B8DD821A5C86E600F4CE19 /* PrettyColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 673900B01A546F2D0066713B /* PrettyColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		67E36B6D1A78267E00B3686F /* PrettyColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673900BD1A546F2D0066713B /* PrettyColorsTests.swift */; };
 		67E36B6E1A78305F00B3686F /* Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67843C211A6102200061C1D3 /* Equality.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +47,6 @@
 		6706DD661D2456F500B22F19 /* Configuration.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Configuration.xcconfig; sourceTree = "<group>"; };
 		6706DD681D2456FF00B22F19 /* Configuration.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Configuration.xcconfig; sourceTree = "<group>"; };
 		673900AF1A546F2D0066713B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		673900B01A546F2D0066713B /* PrettyColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrettyColors.h; sourceTree = "<group>"; };
 		673900BC1A546F2D0066713B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		673900BD1A546F2D0066713B /* PrettyColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrettyColorsTests.swift; path = UnitTests/PrettyColorsTests.swift; sourceTree = "<group>"; };
 		673900C71A546F530066713B /* StyleParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleParameter.swift; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 				67A7B39D1D1048DB00280ABD /* ColorWrap.swift */,
 				673900C91A546F880066713B /* ECMA 48.swift */,
 				673900C71A546F530066713B /* StyleParameter.swift */,
-				673900B01A546F2D0066713B /* PrettyColors.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -149,7 +146,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67B8DD821A5C86E600F4CE19 /* PrettyColors.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
