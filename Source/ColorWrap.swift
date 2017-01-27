@@ -177,6 +177,7 @@ public struct Wrap: SelectGraphicRenditionWrapType {
 //------------------------------------------------------------------------------
 
 extension Color.Wrap: Sequence {
+	
 	public typealias Iterator = IndexingIterator<Array<Element>>
 	public func makeIterator() -> Iterator {
 		return parameters.makeIterator()
@@ -188,6 +189,7 @@ extension Color.Wrap: Sequence {
 //------------------------------------------------------------------------------
 
 extension Color.Wrap: Collection, MutableCollection {
+	
 	public typealias Index = UnderlyingCollection.Index
 	public var startIndex: Index { return parameters.startIndex }
 	public var endIndex: Index { return parameters.endIndex }
@@ -195,7 +197,7 @@ extension Color.Wrap: Collection, MutableCollection {
 	public func index(after i: Index) -> Index { return parameters.index(after: i) }
 	public func formIndex(after i: inout Index) { return parameters.formIndex(after: &i) }
   
-	public subscript(position:Index) -> Iterator.Element {
+	public subscript(position: Index) -> Iterator.Element {
 		get { return parameters[position] }
 		set { parameters[position] = newValue }
 	}
@@ -206,6 +208,7 @@ extension Color.Wrap: Collection, MutableCollection {
 //------------------------------------------------------------------------------
 
 extension Color.Wrap: RangeReplaceableCollection {
+	
 	public mutating func replaceSubrange<C: Collection>(
 		_ bounds: Range<Index>, with newElements: C
 	) where C.Iterator.Element == Iterator.Element {
