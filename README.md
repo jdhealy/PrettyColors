@@ -15,15 +15,15 @@ The library outputs [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escap
 ```swift
 import PrettyColors
 
-let redText: String = Color.Wrap(foreground: .Red).wrap("A red piece of text.")
+let redText: String = Color.Wrap(foreground: .red).wrap("A red piece of text.")
 println(redText)
 
-Color.Wrap(foreground: .Yellow, style: .Bold)
-Color.Wrap(foreground: .Green, background: .Black, style: .Bold, .Underlined)
+Color.Wrap(foreground: .yellow, style: .bold)
+Color.Wrap(foreground: .green, background: .black, style: .bold, .underlined)
 
 // 8-bit (256) color support
 Color.Wrap(foreground: 114)
-Color.Wrap(foreground: 114, style: .Bold)
+Color.Wrap(foreground: 114, style: .bold)
 ```
 
 **More examples can be found in [the tests](./Tests/UnitTests/PrettyColorsTests.swift).**
