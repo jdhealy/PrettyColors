@@ -363,7 +363,7 @@ class PrettyColorsTests: XCTestCase {
 					return ($0 as UInt8, [style] as Color.Wrap)
 				}
 			) {
-				let formatted·number = NSString(format: "%02d", number) as String
+				let formatted·number = NSString(format: "%02d", number).appending("")
 
 				for (appended·wrap, suffix) in [
 					(wrap, "normal"),
