@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     'J.D. Healy' => 'jdhealy@gmail.com'
   }
   spec.social_media_url = 'http://twitter.com/jdhealy'
-  spec.source = { :git => 'https://github.com/jdhealy/PrettyColors.git', :tag => "v#{spec.version}" }
+  spec.source = { :git => 'https://github.com/jdhealy/PrettyColors.git', :tag => "#{spec.version}" }
   spec.source_files = 'Source/**/*.{h,swift}'
   spec.requires_arc = true
   spec.ios.deployment_target = '8.0'
