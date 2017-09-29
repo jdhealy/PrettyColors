@@ -95,3 +95,13 @@ class EqualityTests: XCTestCase {
 	}
 
 }
+
+extension EqualityTests {
+	static var allTests = [
+		("testA", testA),
+		("testB", testB),
+		("testC", testC),
+		("testD", testD),
+		("testE", testE),
+	]
+}
