@@ -68,22 +68,32 @@ matrix:
         - XCODE_SDK=macosx
           XCODE_ACTION=test
           XCODE_DESTINATION="arch=x86_64"
-    - osx_image: xcode8
+    - osx_image: xcode8.3
+      env:
+        - XCODE_SDK=macosx
+          XCODE_ACTION=test
+          XCODE_DESTINATION="arch=x86_64"
+    - osx_image: xcode9
+      env:
+        - XCODE_SDK=macosx
+          XCODE_ACTION=test
+          XCODE_DESTINATION="arch=x86_64"
+    - osx_image: xcode9
       env:
         - XCODE_SDK=iphonesimulator
           XCODE_ACTION="build-for-testing test-without-building"
           XCODE_DESTINATION="name=iPhone 6s"
-    - osx_image: xcode8
+    - osx_image: xcode9
       env:
         - XCODE_SDK=appletvsimulator
           XCODE_ACTION="build-for-testing test-without-building"
           XCODE_DESTINATION="name=Apple TV 1080p"
-    - osx_image: xcode8
+    - osx_image: xcode9
       env:
         - XCODE_SDK=watchsimulator
           XCODE_ACTION=build
           XCODE_DESTINATION="name=Apple Watch - 38mm"
-    - osx_image: xcode8
+    - osx_image: xcode9
       env:
         - JOB=CARTHAGE
       script:
@@ -104,6 +114,18 @@ matrix:
         - swift build --verbose
         - swift test
     - osx_image: xcode8.2
+      env:
+        - JOB=SWIFT_PM
+      script:
+        - swift build --verbose
+        - swift test
+    - osx_image: xcode8.3
+      env:
+        - JOB=SWIFT_PM
+      script:
+        - swift build --verbose
+        - swift test
+    - osx_image: xcode9
       env:
         - JOB=SWIFT_PM
       script:
